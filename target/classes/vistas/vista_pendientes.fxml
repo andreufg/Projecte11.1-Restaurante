@@ -16,11 +16,11 @@
       <ListView layoutX="13.0" layoutY="51.0" prefHeight="221.0" prefWidth="304.0" />
       <AnchorPane layoutX="5.0" layoutY="277.0" prefHeight="118.0" prefWidth="315.0">
          <children>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="123.0" style="-fx-background-color: #F0F8FF;" text="Nuevo pedido" />
-            <Button layoutX="178.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: #F0F8FF;" text="Preparar pedido" />
-            <Button layoutX="178.0" layoutY="47.0" mnemonicParsing="false" style="-fx-background-color: #F0F8FF;" text="Cancelar pedido" />
-            <Button layoutX="14.0" layoutY="47.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="123.0" style="-fx-background-color: #F0F8FF;" text="Ver detalle" />
-            <Button layoutX="96.0" layoutY="80.0" mnemonicParsing="false" onAction="#volverAtras" prefHeight="24.0" prefWidth="123.0" style="-fx-background-color: #F0F8FF;" text="Atras" />
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cambiarNuevoPedido" prefHeight="24.0" prefWidth="123.0" text="Nuevo pedido" />
+            <Button layoutX="178.0" layoutY="14.0" mnemonicParsing="false" text="Preparar pedido" />
+            <Button layoutX="178.0" layoutY="47.0" mnemonicParsing="false" text="Cancelar pedido" />
+            <Button layoutX="14.0" layoutY="47.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="123.0" text="Ver detalle" />
+            <Button layoutX="96.0" layoutY="80.0" mnemonicParsing="false" onAction="#volverAtras" prefHeight="24.0" prefWidth="123.0" text="Atras" />
          </children>
       </AnchorPane>
    </children>

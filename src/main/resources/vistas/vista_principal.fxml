@@ -12,12 +12,12 @@
             <Font name="System Bold Italic" size="21.0" />
          </font>
       </Text>
-      <Button layoutX="83.0" layoutY="171.0" mnemonicParsing="false" onAction="#cambiarAPedidos" prefHeight="59.0" prefWidth="161.0" style="-fx-background-color: #F0F8FF;" text="Pedidos Pendientes" textOverrun="CLIP">
+      <Button layoutX="83.0" layoutY="171.0" mnemonicParsing="false" onAction="#cambiarAPedidos" prefHeight="59.0" prefWidth="161.0" text="Pedidos Pendientes" textOverrun="CLIP">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="83.0" layoutY="273.0" mnemonicParsing="false" onAction="#cambiarAHistorialPedidos" prefHeight="59.0" prefWidth="161.0" style="-fx-background-color: #F0F8FF;" text="Historial de Pedidos" textOverrun="CLIP">
+      <Button layoutX="83.0" layoutY="273.0" mnemonicParsing="false" onAction="#cambiarAHistorial" prefHeight="59.0" prefWidth="161.0" text="Historial de Pedidos" textOverrun="CLIP">
          <font>
             <Font size="14.0" />
          </font>

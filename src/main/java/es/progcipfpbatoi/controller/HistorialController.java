@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PendientesController implements Initializable {
+public class HistorialController implements Initializable {
     @FXML
     private void volverAtras(ActionEvent event) {
 
@@ -18,17 +18,6 @@ public class PendientesController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             InicioController inicioController = new InicioController();
             ChangeScene.change(stage, inicioController, "/vistas/vista_principal.fxml");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-    @FXML
-    private void cambiarNuevoPedido(ActionEvent event) {
-
-        try {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            CrearPedidoController crearPedidoController = new CrearPedidoController(this,"/vistas/vista_pendientes.fxml");
-            ChangeScene.change(stage, crearPedidoController, "/vistas/vista_crear_pedido.fxml");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

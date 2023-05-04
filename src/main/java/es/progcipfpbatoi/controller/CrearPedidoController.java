@@ -11,13 +11,21 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CrearPedidoController implements Initializable {
+    private Initializable controladorPadre;
+    private String vistaPadre;
+
+    public CrearPedidoController(Initializable controladorPadre,String vistaPadre) {
+        this.controladorPadre = controladorPadre;
+        this.vistaPadre = vistaPadre;
+    }
+
     @FXML
     private void volverAtras(ActionEvent event) {
 
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             InicioController inicioController = new InicioController();
-            ChangeScene.change(stage, inicioController, "/vistas/vista_principal.fxml");
+            ChangeScene.change(stage, controladorPadre, vistaPadre);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

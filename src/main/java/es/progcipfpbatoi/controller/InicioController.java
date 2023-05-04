@@ -25,16 +25,18 @@ public class InicioController implements Initializable {
         }
     }
     @FXML
-    private void cambiarAHistorialPedidos(ActionEvent event) {
+    private void cambiarAHistorial(ActionEvent event) {
 
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            CrearPedidoController crearPedidoController = new CrearPedidoController();
-            ChangeScene.change(stage, crearPedidoController, "/vistas/vista_crear_pedido.fxml");
+            HistorialController historialController = new HistorialController();
+            ChangeScene.change(stage, historialController, "/vistas/vista_historial_pedidos.fxml");
         } catch (IOException ex) {
+            System.out.println("Malo");
             ex.printStackTrace();
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
