@@ -5,7 +5,7 @@ import es.progcipfpbatoi.model.entidades.producttypes.types.*;
 
 import java.util.ArrayList;
 
-public class ProductRepository implements InmemoryRepository{
+public class ProductRepository{
     private ArrayList<Product> productList;
 
 
@@ -19,7 +19,7 @@ public class ProductRepository implements InmemoryRepository{
         setDefaultStarterList();
         setDefaultDesertList();
     }
-    @Override
+
     public ArrayList<Product> findAll() {
         return productList;
     }
@@ -34,7 +34,6 @@ public class ProductRepository implements InmemoryRepository{
 
         return productsFiltered;
     }
-    @Override
     public ArrayList<Product> findAll(String cod) {
         ArrayList<Product> listaProductos = new ArrayList<>();
         for (Product product: productList) {

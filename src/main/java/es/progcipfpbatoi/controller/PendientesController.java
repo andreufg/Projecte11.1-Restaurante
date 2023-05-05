@@ -12,7 +12,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PendientesController implements Initializable {
-    private ProductRepository productRepository;
     @FXML
     private void volverAtras(ActionEvent event) {
 

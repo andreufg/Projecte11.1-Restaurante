@@ -1,7 +1,5 @@
 package es.progcipfpbatoi.model.entidades.producttypes;
 
-import javafx.scene.image.Image;
-
 public abstract class Product {
 
     private String cod;
@@ -14,31 +12,25 @@ public abstract class Product {
 
     private float vat;
 
-    private Image imagen;
     private String prefixCode;
 
-    public Product(Image imagen, String cod, String name, float prize, float disccount, float vat, String prefixCode) {
+    public Product(String cod, String name, float prize, float disccount, float vat, String prefixCode) {
         this.cod = prefixCode + cod;
-        this.imagen = imagen;
         this.name = name;
         this.prize = prize;
         this.discount = disccount;
         this.vat = vat;
         this.prefixCode = prefixCode;
     }
-    public Product(Image imagen, String name, float prize, float disccount, float vat) {
-        this.name = name;
-        this.prize = prize;
-        this.imagen = imagen;
-        this.discount = disccount;
-        this.vat = vat;
+
+    public String getPrefixCode() {
+        return prefixCode;
     }
 
-    public Product(Image imagen, String name, String prefixCode) {
-        this(imagen, name, 1.25f, 0f, 0.1f);
+    public Product(String cod, String name, String prefixCode) {
+        this(cod, name, 1.25f, 0f, 0.1f, prefixCode);
     }
-
-        public boolean empiezaPor(String text) {
+    public boolean empiezaPor(String text) {
         return this.cod.startsWith(text);
     }
 
