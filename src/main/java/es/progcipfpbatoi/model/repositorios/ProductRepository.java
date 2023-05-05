@@ -5,8 +5,10 @@ import es.progcipfpbatoi.model.entidades.producttypes.types.*;
 
 import java.util.ArrayList;
 
-public class ProductRepository {
+public class ProductRepository implements InmemoryRepository{
     private ArrayList<Product> productList;
+
+
     private int numericCode;
 
     public ProductRepository() {
@@ -16,6 +18,10 @@ public class ProductRepository {
         setDefaultDrinkList();
         setDefaultStarterList();
         setDefaultDesertList();
+    }
+    @Override
+    public ArrayList<Product> findAll() {
+        return productList;
     }
 
     public ArrayList<Product> findAll(Class<? extends Product> productClass) {
@@ -28,14 +34,15 @@ public class ProductRepository {
 
         return productsFiltered;
     }
-
-    public Product findByCod(String cod) {
+    @Override
+    public ArrayList<Product> findAll(String cod) {
+        ArrayList<Product> listaProductos = new ArrayList<>();
         for (Product product: productList) {
-            if (product.containsThisCode(cod)){
-                return product;
+            if (product.empiezaPor(cod)){
+                listaProductos.add(product);
             }
         }
-        return null;
+        return listaProductos;
     }
 
     private void setDefaultSandwichList() {
@@ -99,4 +106,8 @@ public class ProductRepository {
         productList.add(new Starter(String.valueOf(numericCode++), "Patatas fritas"));
         productList.add(new Starter(String.valueOf(numericCode++), "Ensalada cesar"));
     }
+
+
+
+
 }

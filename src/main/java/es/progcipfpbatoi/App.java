@@ -2,6 +2,7 @@ package es.progcipfpbatoi;
 
 import es.progcipfpbatoi.controller.ChangeScene;
 import es.progcipfpbatoi.controller.InicioController;
+import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

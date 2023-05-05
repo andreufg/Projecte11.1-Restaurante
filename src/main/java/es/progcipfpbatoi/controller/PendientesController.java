@@ -1,5 +1,6 @@
 package es.progcipfpbatoi.controller;
 
+import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PendientesController implements Initializable {
+    private ProductRepository productRepository;
     @FXML
     private void volverAtras(ActionEvent event) {
 

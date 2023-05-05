@@ -15,7 +15,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <ListView layoutX="14.0" layoutY="54.0" prefHeight="255.0" prefWidth="302.0" />
+      <ListView fx:id="listaProductos" layoutX="14.0" layoutY="54.0" prefHeight="255.0" prefWidth="302.0" style="-fx-background-color: E1E1E1;" />
       <TextField layoutX="14.0" layoutY="323.0" prefHeight="24.0" prefWidth="141.0" promptText="Nombre" />
       <DatePicker layoutX="175.0" layoutY="323.0" prefHeight="24.0" prefWidth="141.0" promptText="Fecha" />
       <Button layoutX="14.0" layoutY="362.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="141.0" text="Confirmar" />
