@@ -28,7 +28,8 @@ public class PendientesController implements Initializable {
 
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            CrearPedidoController crearPedidoController = new CrearPedidoController(this,"/vistas/vista_pendientes.fxml");
+            ProductosListaController productosListaController = new ProductosListaController();
+            CrearPedidoController crearPedidoController = new CrearPedidoController(productosListaController,this,"/vistas/vista_pendientes.fxml");
             ChangeScene.change(stage, crearPedidoController, "/vistas/vista_crear_pedido.fxml");
         } catch (IOException ex) {
             ex.printStackTrace();

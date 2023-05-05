@@ -35,17 +35,19 @@ public class CrearPedidoController implements Initializable {
     private Initializable controladorPadre;
     private ArrayList<Product> lista;
     private String vistaPadre;
+    private ProductosListaController productosListaController;
 
-    public CrearPedidoController(Initializable controladorPadre,String vistaPadre) {
+    public CrearPedidoController(ProductosListaController productosListaController,Initializable controladorPadre,String vistaPadre) {
         this.controladorPadre = controladorPadre;
         this.vistaPadre = vistaPadre;
+        this.productosListaController = productosListaController;
         ProductRepository productRepository = new ProductRepository();
         this.lista = productRepository.findAll();
     }
 
     @FXML
     private void confirmar(ActionEvent event){
-        if ()
+
     }
 
     @FXML

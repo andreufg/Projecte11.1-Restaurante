@@ -1,9 +1,6 @@
 package es.progcipfpbatoi.controller;
 
 import es.progcipfpbatoi.model.entidades.producttypes.Product;
-import es.progcipfpbatoi.model.entidades.producttypes.types.Drink;
-import es.progcipfpbatoi.model.entidades.producttypes.types.Sandwich;
-import es.progcipfpbatoi.model.entidades.producttypes.types.Starter;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
+
 
 public class ProductosListaController extends ListCell<Product>  {
     @FXML
@@ -45,23 +42,25 @@ public class ProductosListaController extends ListCell<Product>  {
         }
     }
 
-    public boolean isCheckBox(){
+    public boolean isSeleccionado(){
         return checkBox.isSelected();
     }
+    public String descipcion(){
+            return descriptionLabel.getText();
+    }
 
-    private void setCategoryImage(ProductRepository productRepository) {
-//        try {
-//            for (Product producto: listaProductos) {
-//            switch (producto.getPrefixCode()) {
-//                case "m" -> categoriaImagen.setImage(new Image(getPathImage("/imagen/bocata.png")));
-//                case "b" -> categoriaImagen.setImage(new Image(getPathImage("/imagen/bebida.png")));
-//                case "e" -> categoriaImagen.setImage(new Image(getPathImage("/imagen/entrante.png")));
-//                case "p" -> categoriaImagen.setImage(new Image(getPathImage("/imagen/postre.png")));
-//            }
-//            }
-//           }catch (URISyntaxException ex) {
-//            ex.printStackTrace();
-//        }
+    private void setCategoryImage(Product product) {
+        try {
+            switch (product.getPrefixCode()) {
+                case "m" -> categoriaImagen.setImage(new Image(getPathImage("/imagen/bocata.png")));
+                case "b" -> categoriaImagen.setImage(new Image(getPathImage("/imagen/bebida.png")));
+                case "e" -> categoriaImagen.setImage(new Image(getPathImage("/imagen/entrante.png")));
+                case "p" -> categoriaImagen.setImage(new Image(getPathImage("/imagen/postre.png")));
+
+            }
+           }catch (URISyntaxException ex) {
+            ex.printStackTrace();
+        }
     }
     private String getPathImage(String fileName) throws URISyntaxException {
 
@@ -76,7 +75,7 @@ public class ProductosListaController extends ListCell<Product>  {
             setGraphic(null);
         } else {
             descriptionLabel.setText(product.toString());
-            ProductRepository productRepository = new ProductRepository();
+            setCategoryImage(product);
             setGraphic(root);
         }
     }
