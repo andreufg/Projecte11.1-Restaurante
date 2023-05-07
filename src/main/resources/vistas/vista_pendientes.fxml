@@ -17,7 +17,7 @@
       <AnchorPane layoutX="5.0" layoutY="277.0" prefHeight="118.0" prefWidth="315.0">
          <children>
             <Button layoutX="105.0" layoutY="14.0" mnemonicParsing="false" onAction="#cambiarNuevoPedido" prefHeight="24.0" prefWidth="123.0" text="Nuevo pedido" />
-            <Button layoutX="105.0" layoutY="47.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="123.0" text="Ver detalle" />
+            <Button layoutX="105.0" layoutY="47.0" mnemonicParsing="false" onAction="#verDetalle" prefHeight="24.0" prefWidth="123.0" text="Ver detalle" />
             <Button layoutX="245.0" layoutY="82.0" mnemonicParsing="false" onAction="#volverAtras" prefHeight="24.0" prefWidth="123.0" text="Atras" />
          </children>
       </AnchorPane>

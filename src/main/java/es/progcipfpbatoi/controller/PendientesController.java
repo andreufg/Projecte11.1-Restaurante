@@ -39,6 +39,23 @@ public class PendientesController implements Initializable {
         this.historialRepository = historialRepository;
         this.listaPedidos = pedidosRepository.findAll();
     }
+    @FXML
+    private void verDetalle(ActionEvent event) {
+        pedidosSeleccionados = listViewPedidos.getSelectionModel().getSelectedItems();
+        if (pedidosSeleccionados.isEmpty()) {
+        }else {
+            try {
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Order order = pedidosSeleccionados.get(0);
+                DetalleController detalleController = new DetalleController(this, order);
+
+                ChangeScene.change(stage, detalleController,"/vistas/list_detalle_pedido.fxml");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 
     @FXML
     private void volverAtras(ActionEvent event) {
