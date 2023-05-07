@@ -1,15 +1,13 @@
 package es.progcipfpbatoi.model.repositorios;
 
 import es.progcipfpbatoi.model.entidades.Order;
-import es.progcipfpbatoi.model.entidades.producttypes.Product;
-import es.progcipfpbatoi.model.entidades.producttypes.types.Sandwich;
 
 import java.util.ArrayList;
 
-public class PedidosRepository implements InmemoryRepository{
+public class HistorialRepository implements InmemoryRepository{
     private ArrayList<Order> listaPedidos;
 
-    public PedidosRepository() {
+    public HistorialRepository() {
         listaPedidos = new ArrayList<>();
     }
 
@@ -30,12 +28,7 @@ public class PedidosRepository implements InmemoryRepository{
 
     @Override
     public void remove() {
-        listaPedidos.remove(0);
-    }
-
-
-    public void remove(Order order) {
-        listaPedidos.remove(order);
+        listaPedidos.remove(1);
     }
 
     @Override
@@ -59,13 +52,6 @@ public class PedidosRepository implements InmemoryRepository{
 
     @Override
     public Order findByText(String text) {
-        for (Order order:listaPedidos) {
-            if (order.empiezaPor(text)) {
-                return order;
-            }
-        }
-
-
         return null;
     }
 

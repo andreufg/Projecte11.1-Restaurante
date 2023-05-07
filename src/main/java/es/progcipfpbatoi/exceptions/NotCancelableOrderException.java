@@ -1,7 +1,7 @@
 package es.progcipfpbatoi.exceptions;
 
 public class NotCancelableOrderException extends RuntimeException{
-    public NotCancelableOrderException(String msg) {
-        super(msg);
+    public NotCancelableOrderException() {
+        super("No se ha podido cancelar");
     }
 }

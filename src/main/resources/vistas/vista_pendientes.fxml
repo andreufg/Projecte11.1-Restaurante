@@ -21,7 +21,7 @@
             <Button layoutX="245.0" layoutY="82.0" mnemonicParsing="false" onAction="#volverAtras" prefHeight="24.0" prefWidth="123.0" text="Atras" />
          </children>
       </AnchorPane>
-      <Button layoutX="388.0" layoutY="292.0" mnemonicParsing="false" text="Preparar pedido" />
-      <Button layoutX="387.0" layoutY="323.0" mnemonicParsing="false" text="Cancelar pedido" />
+      <Button layoutX="388.0" layoutY="292.0" mnemonicParsing="false" onAction="#prepararPedido" text="Preparar pedido" />
+      <Button layoutX="387.0" layoutY="323.0" mnemonicParsing="false" onAction="#cancelarPedido" text="Cancelar pedido" />
    </children>
 </AnchorPane>

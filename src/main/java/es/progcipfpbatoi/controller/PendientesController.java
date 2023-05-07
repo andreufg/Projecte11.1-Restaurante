@@ -1,7 +1,9 @@
 package es.progcipfpbatoi.controller;
 
+import es.progcipfpbatoi.exceptions.NotCancelableOrderException;
 import es.progcipfpbatoi.model.entidades.Order;
 import es.progcipfpbatoi.model.entidades.producttypes.Product;
+import es.progcipfpbatoi.model.repositorios.HistorialRepository;
 import es.progcipfpbatoi.model.repositorios.PedidosRepository;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.collections.FXCollections;
@@ -10,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.stage.Stage;
@@ -19,15 +22,21 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class PendientesController implements Initializable {
     @FXML
     private ListView<Order> listViewPedidos;
     private ArrayList<Order> listaPedidos;
     private PedidosRepository pedidosRepository;
+    private HistorialRepository historialRepository;
+    private ObservableList<Order> pedidosSeleccionados;
+    private Initializable controladorPadre;
 
-    public PendientesController(PedidosRepository pedidosRepository) {
+    public PendientesController(Initializable initializable,PedidosRepository pedidosRepository, HistorialRepository historialRepository) {
         this.pedidosRepository = pedidosRepository;
+        this.controladorPadre = initializable;
+        this.historialRepository = historialRepository;
         this.listaPedidos = pedidosRepository.findAll();
     }
 
@@ -36,23 +45,70 @@ public class PendientesController implements Initializable {
 
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            InicioController inicioController = new InicioController();
-            ChangeScene.change(stage, inicioController, "/vistas/vista_principal.fxml");
+            ChangeScene.change(stage, controladorPadre, "/vistas/vista_principal.fxml");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
     @FXML
     private void cambiarNuevoPedido(ActionEvent event) {
 
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            CrearPedidoController crearPedidoController = new CrearPedidoController(this,"/vistas/vista_pendientes.fxml", pedidosRepository);
+            CrearPedidoController crearPedidoController = new CrearPedidoController(this, "/vistas/vista_pendientes.fxml", pedidosRepository);
             ChangeScene.change(stage, crearPedidoController, "/vistas/vista_crear_pedido.fxml");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
+    @FXML
+    private void cancelarPedido() {
+        pedidosSeleccionados = listViewPedidos.getSelectionModel().getSelectedItems();
+        if (!pedidosSeleccionados.isEmpty()) {
+            Scanner scanner = new Scanner(System.in);
+            String respuesta;
+            boolean salir = false;
+            do {
+                System.out.println("¿Deseas cancelar el pedido?");
+                respuesta = scanner.next();
+                if (respuesta.equals("si") || respuesta.equals("no") || respuesta.equals("Si") || respuesta.equals("No")) {
+                    salir = true;
+                }
+            } while (!salir);
+            if (respuesta.equals("si") || respuesta.equals("Si")) {
+                for (Order order : pedidosSeleccionados) {
+                    pedidosRepository.remove(order);
+                    actualizarListaPedidos();
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void prepararPedido(ActionEvent event) {
+        if (listaPedidos.size() > 0) {
+            historialRepository.add(listaPedidos.get(0));
+            if (historialRepository.save(listaPedidos.get(0))) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Preparar Pedido");
+                alert.setHeaderText(null);
+                alert.setContentText("Has preparado el predido " + listaPedidos.get(0).toString());
+                alert.showAndWait();
+                System.out.println("Preparado con exito");
+                listaPedidos.remove(listaPedidos.get(0));
+                actualizarListaPedidos();
+
+            }
+        }
+    }
+
+    private void actualizarListaPedidos() {
+        this.listaPedidos = pedidosRepository.findAll();
+        listViewPedidos.setItems(getData());
+    }
+
     private ObservableList<Order> getData() {
         return FXCollections.observableArrayList(listaPedidos);
     }
@@ -60,7 +116,7 @@ public class PendientesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (listaPedidos.size()>0){
+        if (listaPedidos.size() > 0) {
             this.listViewPedidos.setItems(getData());
             this.listViewPedidos.setCellFactory((ListView<Order> l) -> new PedidosPendientesListaController(pedidosRepository));
             this.listViewPedidos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

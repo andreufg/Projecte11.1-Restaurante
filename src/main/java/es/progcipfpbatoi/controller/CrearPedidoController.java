@@ -73,7 +73,6 @@ public class CrearPedidoController implements Initializable {
             }
         }
         for (Product producto : productosSeleccionados) {
-            System.out.println(producto.getName());
             order.addNewProduct(producto);
         }
 
