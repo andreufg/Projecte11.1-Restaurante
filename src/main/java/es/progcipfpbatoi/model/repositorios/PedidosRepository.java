@@ -1,22 +1,73 @@
 package es.progcipfpbatoi.model.repositorios;
 
+import es.progcipfpbatoi.model.entidades.Order;
 import es.progcipfpbatoi.model.entidades.producttypes.Product;
+import es.progcipfpbatoi.model.entidades.producttypes.types.Sandwich;
 
 import java.util.ArrayList;
 
 public class PedidosRepository implements InmemoryRepository{
-    @Override
-    public ArrayList<Product> findAll() {
-        return null;
+    private ArrayList<Order> listaPedidos;
+
+    public PedidosRepository() {
+        listaPedidos = new ArrayList<>();
     }
 
     @Override
-    public boolean save(Product usuario) {
+    public ArrayList<Order> findAll() {
+        return listaPedidos;
+    }
+
+    @Override
+    public int size() {
+        return listaPedidos.size();
+    }
+
+    @Override
+    public void add(Order pedidos) {
+        listaPedidos.add(pedidos);
+    }
+
+    @Override
+    public boolean save(Order pedidos) {
+        for (Order pedido: listaPedidos) {
+            if (pedido.getCode().equals(pedidos.getCode())){
+                return true;
+            }
+        }
         return false;
     }
+    @Override
+    public Order findByCod(String code) {
+        Order orderBuscada = new Order(code);
+        if (listaPedidos.contains(orderBuscada)) {
+            return listaPedidos.get(listaPedidos.indexOf(orderBuscada));
+        }
+
+        return null;
+    }
 
     @Override
-    public ArrayList<Product> findAll(String text) {
+    public Order findByText(String text) {
+        Order orderBuscada = new Order(text);
+        for (Order order: listaPedidos) {
+            if (order.toString().equals(text)){
+                return order;
+            }
+        }
+
         return null;
+    }
+
+
+    @Override
+    public ArrayList<Order> findAll(String text) {
+        ArrayList<Order> listaPedidosFiltrados = new ArrayList<>();
+        for (Order pedido: listaPedidos) {
+            if (pedido.empiezaPor(text)){
+                listaPedidosFiltrados.add(pedido);
+            }
+        }
+        return listaPedidosFiltrados;
     }
 }

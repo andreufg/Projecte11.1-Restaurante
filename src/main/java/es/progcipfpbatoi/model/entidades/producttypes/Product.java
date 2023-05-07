@@ -15,7 +15,6 @@ public abstract class Product {
     private float vat;
 
     private String prefixCode;
-    private boolean seleccionado;
 
     public Product(String cod, String name, float prize, float disccount, float vat, String prefixCode) {
         this.cod = prefixCode + cod;
@@ -24,7 +23,6 @@ public abstract class Product {
         this.discount = disccount;
         this.vat = vat;
         this.prefixCode = prefixCode;
-        this.seleccionado = false;
     }
 
     public String getPrefixCode() {
@@ -33,11 +31,6 @@ public abstract class Product {
 
     public Product(String cod, String name, String prefixCode) {
         this(cod, name, 1.25f, 0f, 0.1f, prefixCode);
-        this.seleccionado = false;
-    }
-
-    public void setSeleccionado() {
-        this.seleccionado = true;
     }
 
     public boolean empiezaPor(String text) {

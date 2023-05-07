@@ -1,5 +1,6 @@
 package es.progcipfpbatoi.controller;
 
+import es.progcipfpbatoi.model.repositorios.PedidosRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +18,8 @@ public class InicioController implements Initializable {
 
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            PendientesController pendientesController = new PendientesController();
+            PedidosRepository pedidosRepository = new PedidosRepository();
+            PendientesController pendientesController = new PendientesController(pedidosRepository);
             ChangeScene.change(stage, pendientesController, "/vistas/vista_pendientes.fxml");
         } catch (IOException ex) {
             System.out.println("Malo");

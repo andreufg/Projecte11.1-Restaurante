@@ -2,6 +2,9 @@ package es.progcipfpbatoi.model.entidades;
 
 import es.progcipfpbatoi.model.entidades.producttypes.Product;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -27,6 +30,13 @@ public class Order {
 
     public Order(String code) {
         this.code = code;
+        this.clientName = "anonimo";
+        DateTimeFormatter formateador = new DateTimeFormatterBuilder().parseCaseInsensitive().append(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toFormatter();
+        this.createdOn = LocalDateTime.now().format(formateador);
+        this.products = new ArrayList<>();
+    }
+    public boolean empiezaPor(String text) {
+        return this.code.startsWith(text);
     }
 
     public void addNewProduct(Product product) {
@@ -35,13 +45,11 @@ public class Order {
 
     @Override
     public String toString() {
-        return "{" +
-                " code : " + code +
-                ", name : " + clientName +
-                ", createdOn : " + createdOn + "\n" +
-                "Productos : " + products + "\n" +
-                "Precio Total : " + getOrderPrize() +
-                '}';
+        return  " Code : " + code +
+                ", Name : " + clientName +
+                ", CreatedOn : " + createdOn + "\n" +
+                "NºProductos : " + products.size() + " " +
+                "Precio Total : " + getOrderPrize();
     }
 
     public String getClientName() {

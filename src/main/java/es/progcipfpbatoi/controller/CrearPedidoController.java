@@ -1,6 +1,8 @@
 package es.progcipfpbatoi.controller;
 
+import es.progcipfpbatoi.model.entidades.Order;
 import es.progcipfpbatoi.model.entidades.producttypes.Product;
+import es.progcipfpbatoi.model.repositorios.PedidosRepository;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,10 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +21,9 @@ import java.util.ResourceBundle;
 public class CrearPedidoController implements Initializable {
     @FXML
     private ListView<Product> listaProductos;
+
+    @FXML
+    private Button confirmar;
 
     @FXML
     private CheckBox checkBox;
@@ -35,38 +37,80 @@ public class CrearPedidoController implements Initializable {
     private Initializable controladorPadre;
     private ArrayList<Product> lista;
     private String vistaPadre;
-    private ProductosListaController productosListaController;
+    private ProductRepository productRepository;
+    private PedidosRepository pedidosRepository;
+    private ObservableList<Product> productosSeleccionados;
+    private Order order;
 
-    public CrearPedidoController(ProductosListaController productosListaController,Initializable controladorPadre,String vistaPadre) {
+    public CrearPedidoController(Initializable controladorPadre, String vistaPadre, PedidosRepository pedidosRepository) {
         this.controladorPadre = controladorPadre;
+        this.pedidosRepository = pedidosRepository;
         this.vistaPadre = vistaPadre;
-        this.productosListaController = productosListaController;
-        ProductRepository productRepository = new ProductRepository();
+        this.productRepository = new ProductRepository();
         this.lista = productRepository.findAll();
     }
 
     @FXML
-    private void confirmar(ActionEvent event){
+    private void confirmar(ActionEvent event) {
+        productosSeleccionados = listaProductos.getSelectionModel().getSelectedItems();
+        if (productosSeleccionados.isEmpty()) {
+            System.out.println("No se han seleccionado productos.");
+        } else {
+            if (!checkBox.isSelected()) {
+                if (pedidosRepository.size() == 0) {
+                    order = new Order("c1");
+                } else {
+                    int numero = pedidosRepository.size() + 1;
+                    order = new Order("c" + numero);
+                }
+            } else {
+                if (pedidosRepository.size() == 0) {
+                    order = new Order("c1", nombre.getText(), fecha.getAccessibleText());
+                } else {
+                    int numero = pedidosRepository.size() + 1;
+                    order = new Order("c" + numero, nombre.getText(), fecha.getAccessibleText());
+                }
+            }
+        }
+        for (Product producto : productosSeleccionados) {
+            System.out.println(producto.getName());
+            order.addNewProduct(producto);
+        }
 
+        System.out.println(order.getProducts());
+        pedidosRepository.add(order);
+        if (pedidosRepository.save(order)) {
+            System.out.println("Pedido guardado con exito");
+            try {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                ChangeScene.change(stage, controladorPadre, vistaPadre);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
+
+
 
     @FXML
     private void volverAtras(ActionEvent event) {
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            InicioController inicioController = new InicioController();
             ChangeScene.change(stage, controladorPadre, vistaPadre);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
     private ObservableList<Product> getData() {
         return FXCollections.observableArrayList(lista);
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listaProductos.setItems(getData());
-        listaProductos.setCellFactory((ListView<Product> l) -> new ProductosListaController());
+        listaProductos.setCellFactory((ListView<Product> l) -> new ProductosListaController(productRepository));
+        listaProductos.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
     }
 }

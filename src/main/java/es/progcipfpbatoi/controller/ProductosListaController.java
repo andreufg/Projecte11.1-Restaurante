@@ -2,6 +2,7 @@ package es.progcipfpbatoi.controller;
 
 import es.progcipfpbatoi.model.entidades.producttypes.Product;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
@@ -13,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 
 public class ProductosListaController extends ListCell<Product>  {
@@ -25,16 +27,16 @@ public class ProductosListaController extends ListCell<Product>  {
     @FXML
     private ImageView categoriaImagen;
 
-    @FXML
-    private CheckBox checkBox;
+
+    private Product product;
 
     private ProductRepository productRepository;
 
-    public ProductosListaController() {
+    public ProductosListaController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/vistas/list_item.fxml"));
         fxmlLoader.setController(this);
-
         try {
             fxmlLoader.load();
         } catch (IOException e) {
@@ -42,12 +44,7 @@ public class ProductosListaController extends ListCell<Product>  {
         }
     }
 
-    public boolean isSeleccionado(){
-        return checkBox.isSelected();
-    }
-    public String descipcion(){
-            return descriptionLabel.getText();
-    }
+
 
     private void setCategoryImage(Product product) {
         try {
@@ -75,6 +72,7 @@ public class ProductosListaController extends ListCell<Product>  {
             setGraphic(null);
         } else {
             descriptionLabel.setText(product.toString());
+            this.product = productRepository.findProduct(descriptionLabel.getText());
             setCategoryImage(product);
             setGraphic(root);
         }

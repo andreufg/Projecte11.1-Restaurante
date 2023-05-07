@@ -43,6 +43,14 @@ public class ProductRepository{
         }
         return listaProductos;
     }
+    public Product findProduct(String text) {
+        for (Product product: productList) {
+            if (product.toString().equals(text)){
+                return product;
+            }
+        }
+        return null;
+    }
 
     private void setDefaultSandwichList() {
 

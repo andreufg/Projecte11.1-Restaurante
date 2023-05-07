@@ -6,22 +6,22 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="328.0" style="-fx-background-color: #ADD8E6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="585.0" style="-fx-background-color: #ADD8E6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="63.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pedidos Pendientes" wrappingWidth="202.85791015625">
+      <Text layoutX="192.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pedidos Pendientes" wrappingWidth="202.85791015625">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Text>
-      <ListView layoutX="13.0" layoutY="51.0" prefHeight="221.0" prefWidth="304.0" />
+      <ListView fx:id="listViewPedidos" layoutX="17.0" layoutY="56.0" prefHeight="221.0" prefWidth="554.0" />
       <AnchorPane layoutX="5.0" layoutY="277.0" prefHeight="118.0" prefWidth="315.0">
          <children>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cambiarNuevoPedido" prefHeight="24.0" prefWidth="123.0" text="Nuevo pedido" />
-            <Button layoutX="178.0" layoutY="14.0" mnemonicParsing="false" text="Preparar pedido" />
-            <Button layoutX="178.0" layoutY="47.0" mnemonicParsing="false" text="Cancelar pedido" />
-            <Button layoutX="14.0" layoutY="47.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="123.0" text="Ver detalle" />
-            <Button layoutX="96.0" layoutY="80.0" mnemonicParsing="false" onAction="#volverAtras" prefHeight="24.0" prefWidth="123.0" text="Atras" />
+            <Button layoutX="105.0" layoutY="14.0" mnemonicParsing="false" onAction="#cambiarNuevoPedido" prefHeight="24.0" prefWidth="123.0" text="Nuevo pedido" />
+            <Button layoutX="105.0" layoutY="47.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="123.0" text="Ver detalle" />
+            <Button layoutX="245.0" layoutY="82.0" mnemonicParsing="false" onAction="#volverAtras" prefHeight="24.0" prefWidth="123.0" text="Atras" />
          </children>
       </AnchorPane>
+      <Button layoutX="388.0" layoutY="292.0" mnemonicParsing="false" text="Preparar pedido" />
+      <Button layoutX="387.0" layoutY="323.0" mnemonicParsing="false" text="Cancelar pedido" />
    </children>
 </AnchorPane>

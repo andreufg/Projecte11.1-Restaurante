@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="root" prefHeight="57.0" prefWidth="582.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="descripcion" layoutX="31.0" prefHeight="47.0" prefWidth="536.0" text="Label" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="31.0" AnchorPane.topAnchor="5.0" />
+        <ImageView fitHeight="15.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="15.0" />
+    </children>
+</AnchorPane>
