@@ -17,11 +17,13 @@ public class InicioController implements Initializable {
     private HistorialController historialController;
     private PendientesController pendientesController;
     private HistorialRepository historialRepository;
+    private ProductosController productosController;
     private PedidosRepository pedidosRepository;
 
     public InicioController(HistorialRepository historialRepository, PedidosRepository pedidosRepository) {
         this.historialRepository = historialRepository;
         this.pedidosRepository = pedidosRepository;
+        this.productosController = new ProductosController(this);
         this.historialController = new HistorialController(this,historialRepository);
         this.pendientesController = new PendientesController(this,pedidosRepository,historialRepository);
     }
@@ -33,7 +35,6 @@ public class InicioController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             ChangeScene.change(stage, pendientesController, "/vistas/vista_pendientes.fxml");
         } catch (IOException ex) {
-            System.out.println("Malo");
             ex.printStackTrace();
         }
     }
@@ -43,7 +44,15 @@ public class InicioController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             ChangeScene.change(stage, historialController, "/vistas/vista_historial_pedidos.fxml");
         } catch (IOException ex) {
-            System.out.println("Malo");
+            ex.printStackTrace();
+        }
+    }
+    @FXML
+    private void cambiarAProductos(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            ChangeScene.change(stage, productosController, "/vistas/vista_productos.fxml");
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
