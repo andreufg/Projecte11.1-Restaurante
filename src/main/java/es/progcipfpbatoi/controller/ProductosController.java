@@ -14,8 +14,6 @@ public class ProductosController implements Initializable {
     private Initializable controladorPadre;
     private CrearProductoController crearProductoController;
 
-    private
-
     public ProductosController(Initializable initializable) {
         this.controladorPadre = initializable;
         this.crearProductoController = new CrearProductoController(this,pr);
