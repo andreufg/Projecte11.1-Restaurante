@@ -20,6 +20,10 @@ public class ProductRepository{
         setDefaultDesertList();
     }
 
+    public void anyadirProducto(Product product) {
+        productList.add(product);
+    }
+
     public ArrayList<Product> findAll() {
         return productList;
     }
@@ -53,7 +57,6 @@ public class ProductRepository{
     }
 
     private void setDefaultSandwichList() {
-
         productList.add(new Sandwich(String.valueOf(numericCode++), "lechuga, tomate y mayonesa"));
         productList.add(new Sandwich(String.valueOf(numericCode++), "HUEVO DURO lechuga, tomate y mayonesa"));
         productList.add(new Sandwich(String.valueOf(numericCode++), "VEGETAL CON QUESO lechuga, tomate y queso"));

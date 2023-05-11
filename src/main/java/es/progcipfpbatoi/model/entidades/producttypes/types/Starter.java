@@ -11,6 +11,11 @@ public class Starter extends Product {
         super(cod, name, "e");
         this.ration = 1;
     }
+    public Starter(String cod, String name, float prize, float disccount, float vat) {
+
+        super(cod, name, prize,disccount,vat,"e");
+        this.ration = 1;
+    }
 
     public int getRation() {
         return ration;

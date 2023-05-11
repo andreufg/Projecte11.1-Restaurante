@@ -12,9 +12,23 @@ import java.util.ResourceBundle;
 
 public class ProductosController implements Initializable {
     private Initializable controladorPadre;
+    private CrearProductoController crearProductoController;
+
+    private
 
     public ProductosController(Initializable initializable) {
         this.controladorPadre = initializable;
+        this.crearProductoController = new CrearProductoController(this,pr);
+    }
+
+    @FXML
+    private void cambiarCrearProductos(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            ChangeScene.change(stage, crearProductoController, "/vistas/vista_crear_producto.fxml");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @FXML

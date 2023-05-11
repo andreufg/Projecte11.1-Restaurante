@@ -19,6 +19,7 @@ public class InicioController implements Initializable {
     private HistorialRepository historialRepository;
     private ProductosController productosController;
     private PedidosRepository pedidosRepository;
+    private CrearProductoController crearProductoController;
 
     public InicioController(HistorialRepository historialRepository, PedidosRepository pedidosRepository) {
         this.historialRepository = historialRepository;
