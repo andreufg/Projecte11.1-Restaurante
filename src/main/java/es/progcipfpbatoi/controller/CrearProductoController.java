@@ -76,37 +76,6 @@ public class CrearProductoController implements Initializable {
             }
 
         }
-//            if (!checkBox.isSelected()) {
-//                if (pedidosRepository.size() == 0) {
-//                    order = new Order("c1");
-//                } else {
-//                    int numero = pedidosRepository.size() + 1;
-//                    order = new Order("c" + numero);
-//                }
-//            } else {
-//                if (pedidosRepository.size() == 0) {
-//                    order = new Order("c1", nombre.getText(), fecha.getAccessibleText());
-//                } else {
-//                    int numero = pedidosRepository.size() + 1;
-//                    order = new Order("c" + numero, nombre.getText(), fecha.getAccessibleText());
-//                }
-//            }
-//        }
-//        for (Product producto : productosSeleccionados) {
-//            order.addNewProduct(producto);
-//        }
-//
-//        System.out.println(order.getProducts());
-//        pedidosRepository.add(order);
-//        if (pedidosRepository.save(order)) {
-//            System.out.println("Pedido guardado con exito");
-//            try {
-//                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//                ChangeScene.change(stage, controladorPadre, vistaPadre);
-//            } catch (IOException ex) {
-//                ex.printStackTrace();
-//            }
-//        }
     }
 
     private float retornarValorNumerico(String text){
