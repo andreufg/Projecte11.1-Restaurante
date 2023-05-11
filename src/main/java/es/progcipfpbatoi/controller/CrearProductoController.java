@@ -5,6 +5,7 @@ import es.progcipfpbatoi.model.entidades.producttypes.Product;
 import es.progcipfpbatoi.model.entidades.producttypes.types.Desert;
 import es.progcipfpbatoi.model.entidades.producttypes.types.Drink;
 import es.progcipfpbatoi.model.entidades.producttypes.types.Sandwich;
+import es.progcipfpbatoi.model.entidades.producttypes.types.Starter;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,11 +19,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.stream.Collector;
 
 public class CrearProductoController implements Initializable {
     private Initializable controladorPadre;
+    private ArrayList<Product> productosCreados;
     @FXML
     private ComboBox<String> tipo;
     @FXML
@@ -34,10 +37,13 @@ public class CrearProductoController implements Initializable {
     @FXML
     private TextField descuento;
 
+    private ProductRepository productRepository;
+
     public CrearProductoController(Initializable initializable, ProductRepository productRepository) {
         this.controladorPadre = initializable;
         tipo = new ComboBox<>();
-
+        this.productosCreados = new ArrayList<>();
+        this.productRepository = productRepository;
     }
 
     @FXML
@@ -47,14 +53,26 @@ public class CrearProductoController implements Initializable {
         } else if (!esNumero(iva.getText())||!esNumeroConDecimal(precio.getText())||!esNumero(descuento.getText())) {
             System.out.println("El iva, el precio y el descuento deben ser numericos o estar dentro del rango permitido");
         } else {
+            Product product;
             if (tipo.getValue().equals("Bebida")){
-                Drink bebida = new Drink("2",nombre.getText(),retornarValorNumerico(precio.getText()),retornarValorNumerico(descuento.getText()),retornarValorNumerico(iva.getText()));
+                product = new Drink("2",nombre.getText(),retornarValorNumerico(precio.getText()),retornarValorNumerico(descuento.getText()),retornarValorNumerico(iva.getText()));
             } else if (tipo.getValue().equals("Montadito")){
-                Sandwich sandwich = new Sandwich("2",nombre.getText(),retornarValorNumerico(precio.getText()),retornarValorNumerico(descuento.getText()),retornarValorNumerico(iva.getText()));
+                product = new Sandwich("2",nombre.getText(),retornarValorNumerico(precio.getText()),retornarValorNumerico(descuento.getText()),retornarValorNumerico(iva.getText()));
             }else if (tipo.getValue().equals("Postre")){
-                Desert desert = new Desert("2",nombre.getText(),retornarValorNumerico(precio.getText()),retornarValorNumerico(descuento.getText()),retornarValorNumerico(iva.getText()));
+                product = new Desert("2",nombre.getText(),retornarValorNumerico(precio.getText()),retornarValorNumerico(descuento.getText()),retornarValorNumerico(iva.getText()));
             }else {
-
+                product = new Starter("2",nombre.getText(),retornarValorNumerico(precio.getText()),retornarValorNumerico(descuento.getText()),retornarValorNumerico(iva.getText()));
+            }
+            productRepository.anyadirProducto(product);
+            productRepository.anyadirProductoCreados(product);
+            if (productRepository.save(product)) {
+                System.out.println("Pedido guardado con exito");
+                try {
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    ChangeScene.change(stage, controladorPadre, "/vistas/vista_productos.fxml");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
 
         }

@@ -1,22 +1,33 @@
 package es.progcipfpbatoi.controller;
 
+import es.progcipfpbatoi.model.entidades.producttypes.Product;
+import es.progcipfpbatoi.model.repositorios.ProductRepository;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProductosController implements Initializable {
     private Initializable controladorPadre;
     private CrearProductoController crearProductoController;
+    private ProductRepository productRepository;
 
-    public ProductosController(Initializable initializable) {
+    @FXML
+    private ListView<Product> listViewProductos;
+
+    public ProductosController(Initializable initializable, ProductRepository productRepository) {
         this.controladorPadre = initializable;
-        this.crearProductoController = new CrearProductoController(this,pr);
+        this.productRepository = productRepository;
+        this.crearProductoController = new CrearProductoController(this,productRepository);
     }
 
     @FXML
@@ -40,8 +51,14 @@ public class ProductosController implements Initializable {
         }
     }
 
+    private ObservableList<Product> getData() {
+        return FXCollections.observableArrayList(productRepository.getProductsCreadosLista());
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        if (productRepository.getProductsCreadosLista().size() > 0) {
+            this.listViewProductos.setItems(getData());
+            this.listViewProductos.setCellFactory((ListView<Product> l) -> new ProductosListaController(productRepository));
+        }
     }
 }

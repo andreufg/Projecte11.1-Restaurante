@@ -32,10 +32,12 @@ public class PendientesController implements Initializable {
     private HistorialRepository historialRepository;
     private ObservableList<Order> pedidosSeleccionados;
     private Initializable controladorPadre;
+    private ProductRepository productRepository;
 
-    public PendientesController(Initializable initializable,PedidosRepository pedidosRepository, HistorialRepository historialRepository) {
+    public PendientesController(Initializable initializable,PedidosRepository pedidosRepository, HistorialRepository historialRepository, ProductRepository productRepository) {
         this.pedidosRepository = pedidosRepository;
         this.controladorPadre = initializable;
+        this.productRepository = productRepository;
         this.historialRepository = historialRepository;
         this.listaPedidos = pedidosRepository.findAll();
     }
@@ -73,7 +75,7 @@ public class PendientesController implements Initializable {
 
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            CrearPedidoController crearPedidoController = new CrearPedidoController(this, "/vistas/vista_pendientes.fxml", pedidosRepository);
+            CrearPedidoController crearPedidoController = new CrearPedidoController(this, "/vistas/vista_pendientes.fxml", pedidosRepository, productRepository);
             ChangeScene.change(stage, crearPedidoController, "/vistas/vista_crear_pedido.fxml");
         } catch (IOException ex) {
             ex.printStackTrace();

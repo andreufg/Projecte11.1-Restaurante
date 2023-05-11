@@ -2,6 +2,7 @@ package es.progcipfpbatoi.controller;
 
 import es.progcipfpbatoi.model.repositorios.HistorialRepository;
 import es.progcipfpbatoi.model.repositorios.PedidosRepository;
+import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,15 +19,11 @@ public class InicioController implements Initializable {
     private PendientesController pendientesController;
     private HistorialRepository historialRepository;
     private ProductosController productosController;
-    private PedidosRepository pedidosRepository;
-    private CrearProductoController crearProductoController;
 
-    public InicioController(HistorialRepository historialRepository, PedidosRepository pedidosRepository) {
-        this.historialRepository = historialRepository;
-        this.pedidosRepository = pedidosRepository;
-        this.productosController = new ProductosController(this);
+    public InicioController(HistorialRepository historialRepository, PedidosRepository pedidosRepository, ProductRepository productRepository) {
+        this.productosController = new ProductosController(this,productRepository);
         this.historialController = new HistorialController(this,historialRepository);
-        this.pendientesController = new PendientesController(this,pedidosRepository,historialRepository);
+        this.pendientesController = new PendientesController(this,pedidosRepository,historialRepository, productRepository);
     }
 
     @FXML

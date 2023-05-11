@@ -4,9 +4,11 @@ import es.progcipfpbatoi.model.entidades.producttypes.Product;
 import es.progcipfpbatoi.model.entidades.producttypes.types.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ProductRepository{
     private ArrayList<Product> productList;
+    private ArrayList<Product> productsCreadosLista;
 
 
     private int numericCode;
@@ -14,14 +16,31 @@ public class ProductRepository{
     public ProductRepository() {
         numericCode = 1;
         productList = new ArrayList<>();
+        productsCreadosLista = new ArrayList<>();
         setDefaultSandwichList();
         setDefaultDrinkList();
         setDefaultStarterList();
         setDefaultDesertList();
     }
+    public void anyadirProductoCreados(Product product) {
+        productsCreadosLista.add(product);
+    }
+
+    public ArrayList<Product> getProductsCreadosLista() {
+        return productsCreadosLista;
+    }
 
     public void anyadirProducto(Product product) {
         productList.add(product);
+    }
+
+    public boolean save(Product product){
+        for (Product product1 :productList) {
+            if (Objects.equals(product.toString(), product1.toString())){
+                return true;
+            }
+        }
+        return false;
     }
 
     public ArrayList<Product> findAll() {
