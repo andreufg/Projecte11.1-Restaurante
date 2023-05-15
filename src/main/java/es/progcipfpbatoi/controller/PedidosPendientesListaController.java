@@ -1,7 +1,7 @@
 package es.progcipfpbatoi.controller;
 
 import es.progcipfpbatoi.model.dto.Order;
-import es.progcipfpbatoi.model.dao.PedidosRepository;
+import es.progcipfpbatoi.model.repositorios.PedidosRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;

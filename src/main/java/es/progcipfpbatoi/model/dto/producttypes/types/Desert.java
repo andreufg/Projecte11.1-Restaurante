@@ -23,8 +23,6 @@ public class Desert extends Product {
         return String.format("%s", characteristic);
     }
 
-    public static void main(String[] args) {
 
-    }
 
 }

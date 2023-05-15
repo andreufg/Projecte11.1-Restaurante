@@ -1,4 +1,4 @@
-package es.progcipfpbatoi.model.dao;
+package es.progcipfpbatoi.model.repositorios;
 
 import es.progcipfpbatoi.model.dto.Order;
 

@@ -1,7 +1,7 @@
 package es.progcipfpbatoi.controller;
 
 import es.progcipfpbatoi.model.dto.Order;
-import es.progcipfpbatoi.model.dao.HistorialRepository;
+import es.progcipfpbatoi.model.repositorios.HistorialRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
