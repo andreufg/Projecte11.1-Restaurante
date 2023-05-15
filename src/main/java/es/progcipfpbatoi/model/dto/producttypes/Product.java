@@ -1,6 +1,6 @@
-package es.progcipfpbatoi.model.entidades.producttypes;
+package es.progcipfpbatoi.model.dto.producttypes;
 
-import javafx.scene.control.CheckBox;
+import java.text.DecimalFormat;
 
 public abstract class Product {
 
@@ -41,14 +41,53 @@ public abstract class Product {
         return this.cod;
     }
 
+    public String getPrecio(){
+        DecimalFormat formato1 = new DecimalFormat("#.00");
+        return formato1.format(prize);
+    }
+    public float devolverPrecio(){
+        return prize;
+    }
     public float getPrize() {
         return prize * (1 + vat) - (prize * discount);
+    }
+    public String getPrizeString() {
+        DecimalFormat formato1 = new DecimalFormat("#.00");
+        return formato1.format(getPrize());
     }
 
     public float getPrizeWithoutDiscount() {
         return prize * (1 + vat);
     }
 
+    public String getDiscount() {
+        DecimalFormat formato1 = new DecimalFormat("#");
+        return formato1.format(discount*100);
+    }
+    public float devolverDiscount() {
+        return discount;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrize(float prize) {
+        this.prize = prize;
+    }
+
+
+    public void setVat(float vat) {
+        this.vat = vat;
+    }
+
+    public String getVat() {
+        DecimalFormat formato1 = new DecimalFormat("#");
+        return formato1.format(vat*100);
+    }
+    public float devolvertVat() {
+        return vat;
+    }
 
     public String getName() {
         return name;
@@ -68,7 +107,8 @@ public abstract class Product {
 
     @Override
     public String toString() {
-        return cod + " " + name + "  Precio: " + getPrize() + "€";
+
+        return cod + " " + name + "  Precio: " + getPrizeString() + "€";
     }
 
     public String getExtras() {

@@ -1,10 +1,8 @@
 package es.progcipfpbatoi.controller;
 
-import es.progcipfpbatoi.exceptions.NotCancelableOrderException;
-import es.progcipfpbatoi.model.entidades.Order;
-import es.progcipfpbatoi.model.entidades.producttypes.Product;
-import es.progcipfpbatoi.model.repositorios.HistorialRepository;
-import es.progcipfpbatoi.model.repositorios.PedidosRepository;
+import es.progcipfpbatoi.model.dto.Order;
+import es.progcipfpbatoi.model.dao.HistorialRepository;
+import es.progcipfpbatoi.model.dao.PedidosRepository;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +18,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 

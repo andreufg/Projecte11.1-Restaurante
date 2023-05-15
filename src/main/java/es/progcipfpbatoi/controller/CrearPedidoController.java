@@ -1,8 +1,8 @@
 package es.progcipfpbatoi.controller;
 
-import es.progcipfpbatoi.model.entidades.Order;
-import es.progcipfpbatoi.model.entidades.producttypes.Product;
-import es.progcipfpbatoi.model.repositorios.PedidosRepository;
+import es.progcipfpbatoi.model.dto.Order;
+import es.progcipfpbatoi.model.dto.producttypes.Product;
+import es.progcipfpbatoi.model.dao.PedidosRepository;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

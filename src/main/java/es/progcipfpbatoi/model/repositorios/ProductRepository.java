@@ -1,7 +1,7 @@
 package es.progcipfpbatoi.model.repositorios;
 
-import es.progcipfpbatoi.model.entidades.producttypes.Product;
-import es.progcipfpbatoi.model.entidades.producttypes.types.*;
+import es.progcipfpbatoi.model.dto.producttypes.Product;
+import es.progcipfpbatoi.model.dto.producttypes.types.*;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -22,21 +22,17 @@ public class ProductRepository{
         setDefaultStarterList();
         setDefaultDesertList();
     }
-    public void anyadirProductoCreados(Product product) {
-        productsCreadosLista.add(product);
-    }
 
     public ArrayList<Product> getProductsCreadosLista() {
         return productsCreadosLista;
     }
-
-    public void anyadirProducto(Product product) {
-        productList.add(product);
+    public String codigo(){
+        return (productList.size() + 1) + "";
     }
 
     public boolean save(Product product){
         for (Product product1 :productList) {
-            if (Objects.equals(product.toString(), product1.toString())){
+            if (Objects.equals(product.getCod(), product1.getCod())){
                 return true;
             }
         }
@@ -45,6 +41,31 @@ public class ProductRepository{
 
     public ArrayList<Product> findAll() {
         return productList;
+    }
+    public void eliminarProducto(Product product){
+        productList.remove(product);
+        productsCreadosLista.remove(product);
+    }
+
+    public void anyadirProducto(Product product) {
+//        for (Product product1:productList) {
+//            if (Objects.equals(product.getCod(), product1.getCod())){
+//                product1 = product;
+//            }
+//        }
+        if (productsCreadosLista.size()>0){
+        for (Product product1:productsCreadosLista) {
+            if (Objects.equals(product.getCod(), product1.getCod())){
+                product1.setName(product.getName());
+                product1.setVat(product.devolvertVat());
+                product1.setDiscount(product.devolverDiscount());
+                product1.setPrize(product.devolverPrecio());
+                return;
+            }
+        }
+        }
+        productList.add(product);
+        productsCreadosLista.add(product);
     }
 
     public ArrayList<Product> findAll(Class<? extends Product> productClass) {

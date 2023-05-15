@@ -1,7 +1,6 @@
 package es.progcipfpbatoi.controller;
 
-import es.progcipfpbatoi.model.entidades.Order;
-import es.progcipfpbatoi.model.entidades.producttypes.Product;
+import es.progcipfpbatoi.model.dto.producttypes.Product;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +13,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProductosController implements Initializable {
@@ -31,8 +29,10 @@ public class ProductosController implements Initializable {
     public ProductosController(Initializable initializable, ProductRepository productRepository) {
         this.controladorPadre = initializable;
         this.productRepository = productRepository;
-        this.crearProductoController = new CrearProductoController(this, productRepository);
+        this.crearProductoController = new CrearProductoController(this,"/vistas/vista_productos.fxml", productRepository);
     }
+
+
 
     @FXML
     private void cambiarCrearProductos(ActionEvent event) {
@@ -53,7 +53,7 @@ public class ProductosController implements Initializable {
 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Product product = productosSeleccionados.get(0);
-                this.detalleProductoController = new DetalleProductoController(this,product);
+                this.detalleProductoController = new DetalleProductoController(this,product, productRepository);
                 ChangeScene.change(stage, detalleProductoController, "/vistas/vista_detalle_producto.fxml");
             } catch (IOException ex) {
                 ex.printStackTrace();

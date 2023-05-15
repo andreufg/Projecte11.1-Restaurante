@@ -1,8 +1,8 @@
 package es.progcipfpbatoi;
 
 import es.progcipfpbatoi.controller.*;
-import es.progcipfpbatoi.model.repositorios.HistorialRepository;
-import es.progcipfpbatoi.model.repositorios.PedidosRepository;
+import es.progcipfpbatoi.model.dao.HistorialRepository;
+import es.progcipfpbatoi.model.dao.PedidosRepository;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.application.Application;
 import javafx.stage.Stage;

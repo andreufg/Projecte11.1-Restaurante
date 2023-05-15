@@ -1,13 +1,12 @@
 package es.progcipfpbatoi.controller;
 
-import es.progcipfpbatoi.model.repositorios.HistorialRepository;
-import es.progcipfpbatoi.model.repositorios.PedidosRepository;
+import es.progcipfpbatoi.model.dao.HistorialRepository;
+import es.progcipfpbatoi.model.dao.PedidosRepository;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;

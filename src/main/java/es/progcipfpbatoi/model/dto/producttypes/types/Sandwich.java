@@ -1,6 +1,6 @@
-package es.progcipfpbatoi.model.entidades.producttypes.types;
+package es.progcipfpbatoi.model.dto.producttypes.types;
 
-import es.progcipfpbatoi.model.entidades.producttypes.Product;
+import es.progcipfpbatoi.model.dto.producttypes.Product;
 
 public class Sandwich extends Product {
 
