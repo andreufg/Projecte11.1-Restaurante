@@ -1,8 +1,6 @@
 package es.progcipfpbatoi.controller;
 
-import es.progcipfpbatoi.exceptions.NotCancelableOrderException;
-import es.progcipfpbatoi.model.entidades.Order;
-import es.progcipfpbatoi.model.entidades.producttypes.Product;
+import es.progcipfpbatoi.model.dto.Order;
 import es.progcipfpbatoi.model.repositorios.HistorialRepository;
 import es.progcipfpbatoi.model.repositorios.PedidosRepository;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
@@ -20,7 +18,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -32,10 +29,12 @@ public class PendientesController implements Initializable {
     private HistorialRepository historialRepository;
     private ObservableList<Order> pedidosSeleccionados;
     private Initializable controladorPadre;
+    private ProductRepository productRepository;
 
-    public PendientesController(Initializable initializable,PedidosRepository pedidosRepository, HistorialRepository historialRepository) {
+    public PendientesController(Initializable initializable,PedidosRepository pedidosRepository, HistorialRepository historialRepository, ProductRepository productRepository) {
         this.pedidosRepository = pedidosRepository;
         this.controladorPadre = initializable;
+        this.productRepository = productRepository;
         this.historialRepository = historialRepository;
         this.listaPedidos = pedidosRepository.findAll();
     }
@@ -73,7 +72,7 @@ public class PendientesController implements Initializable {
 
         try {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            CrearPedidoController crearPedidoController = new CrearPedidoController(this, "/vistas/vista_pendientes.fxml", pedidosRepository);
+            CrearPedidoController crearPedidoController = new CrearPedidoController(this, "/vistas/vista_pendientes.fxml", pedidosRepository, productRepository);
             ChangeScene.change(stage, crearPedidoController, "/vistas/vista_crear_pedido.fxml");
         } catch (IOException ex) {
             ex.printStackTrace();

@@ -1,117 +1,72 @@
 package es.progcipfpbatoi.model.repositorios;
 
-import es.progcipfpbatoi.model.entidades.producttypes.Product;
-import es.progcipfpbatoi.model.entidades.producttypes.types.*;
+import es.progcipfpbatoi.exceptions.DatabaseErrorException;
+import es.progcipfpbatoi.exceptions.NotFoundException;
+import es.progcipfpbatoi.model.dao.ProductosDAO;
+import es.progcipfpbatoi.model.dto.producttypes.Product;
+import es.progcipfpbatoi.model.dto.producttypes.types.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ProductRepository{
     private ArrayList<Product> productList;
+    private ArrayList<Product> productsCreadosLista;
+    private ProductosDAO productosDAO;
 
-
-    private int numericCode;
-
-    public ProductRepository() {
-        numericCode = 1;
-        productList = new ArrayList<>();
-        setDefaultSandwichList();
-        setDefaultDrinkList();
-        setDefaultStarterList();
-        setDefaultDesertList();
+    public ProductRepository(ProductosDAO productosDAO) {
+        this.productosDAO = productosDAO;
+        this.productList = productosDAO.findAll();
+        this.productsCreadosLista = productosDAO.findAllCreadas();
     }
 
+    public ArrayList<Product> getProductsCreadosLista() {
+        return productsCreadosLista;
+    }
     public ArrayList<Product> findAll() {
-        return productList;
+        return productosDAO.findAll();
     }
 
-    public ArrayList<Product> findAll(Class<? extends Product> productClass) {
-        ArrayList<Product> productsFiltered = new ArrayList<>();
-        for (Product current: productList) {
-            if (current.getClass() == productClass) {
-                productsFiltered.add(current);
-            }
-        }
+    public ArrayList<Product> findAll(String text) {
+        return productosDAO.findAll(text);
+    }
 
-        return productsFiltered;
-    }
-    public ArrayList<Product> findAll(String cod) {
-        ArrayList<Product> listaProductos = new ArrayList<>();
-        for (Product product: productList) {
-            if (product.empiezaPor(cod)){
-                listaProductos.add(product);
-            }
-        }
-        return listaProductos;
-    }
     public Product findProduct(String text) {
-        for (Product product: productList) {
-            if (product.toString().equals(text)){
-                return product;
+        for (Product producto:productosDAO.findAll()) {
+            if (producto.toString().equals(text)){
+                return producto;
             }
         }
         return null;
     }
+    public void eliminarProducto(Product product) throws DatabaseErrorException {
+        productList.remove(product);
+        productsCreadosLista.remove(product);
+        productosDAO.eliminar(product);
+    }
 
-    private void setDefaultSandwichList() {
+    public Product getById(int id) throws DatabaseErrorException, NotFoundException {
+        return productosDAO.getById(id);
+    }
+    public String codigo(){
+        return productosDAO.findAll().size() + "";
+    }
 
-        productList.add(new Sandwich(String.valueOf(numericCode++), "lechuga, tomate y mayonesa"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "HUEVO DURO lechuga, tomate y mayonesa"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "VEGETAL CON QUESO lechuga, tomate y queso"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "Burger, bacon ahumado, cebolla crujiente y alioli"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "Pollo, bacon ahumado y salsa brava"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "Pollo kebab, cebolla, pimiento verde y mayonesa"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "CUATRO QUESOS: Queso ibérico, queso brie, queso de cabra y crema de queso"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "CAPRESE: Jamón gran reserva, queso mozzarella, tomate y pesto"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "Pulled pork y guacamole"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "PULLED PORK y queso brie"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "FILETE RUSO, cebolla caramelizada y salsa de queso cheddar"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "SALMÓN AHUMADO y crema de queso"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "CARNE MECHADA DESHILACHADA y cebolla crujiente"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "JAMÓN GRAN RESERVA, tomate y aceite de oliva virgen extra"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "CARRILLERA AL VINO TINTO y queso ibérico"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "QUESO IBÉRICO, tortilla de patatas y mayonesa"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "ALBÓNDIGAS y salsa BBQ"));
-        productList.add(new Sandwich(String.valueOf(numericCode++), "Pollo, cebolla caramelizada y mayonesa trufada"));
-        Product product = new Sandwich(String.valueOf(numericCode++), "CHISTORRA, bacon ahumado y salsa brava");
-        product.setDiscount(0.2f);
+    public boolean save(Product product) throws DatabaseErrorException {
         productList.add(product);
-        productList.add(new Sandwich(String.valueOf(numericCode++), "Tortilla de patatas"));
+        productsCreadosLista.add(product);
+        return productosDAO.save(product);
     }
-
-    private void setDefaultDrinkList() {
-        productList.add(new Drink(String.valueOf(numericCode++), "Coca-Cola"));
-        productList.add(new Drink(String.valueOf(numericCode++), "Agua"));
-        productList.add(new Drink(String.valueOf(numericCode++), "Fanta Limón"));
-        productList.add(new Drink(String.valueOf(numericCode++), "Fanta Naranja"));
-        productList.add(new Drink(String.valueOf(numericCode++), "Cerveza bote 33cl"));
-        productList.add(new Drink(String.valueOf(numericCode++), "Caña Cerveza"));
-        productList.add(new Drink(String.valueOf(numericCode++), "Jarra Cerveza"));
-    }
-
-    private void setDefaultDesertList() {
-        productList.add(new Desert(String.valueOf(numericCode++), "Pastel de Queso",
-                Characteristic.CELIAC_SUITABLE));
-        productList.add(new Desert(String.valueOf(numericCode++), "Pastel Chocolate"));
-        productList.add(new Desert(String.valueOf(numericCode++), "Helado Chocolate",
-                Characteristic.DIABETIC_SUITABLE));
-        productList.add(new Desert(String.valueOf(numericCode++), "Helado Vainilla",
-                Characteristic.CELIAC_SUITABLE));
-        productList.add(new Desert(String.valueOf(numericCode++), "Helado Limón",
-                Characteristic.CELIAC_SUITABLE, Characteristic.DIABETIC_SUITABLE));
-        productList.add(new Desert(String.valueOf(numericCode++), "Helado Fresa",
-                Characteristic.CELIAC_SUITABLE, Characteristic.DIABETIC_SUITABLE));
-    }
-
-    private void setDefaultStarterList() {
-        productList.add(new Starter(String.valueOf(numericCode++), "Patatas 4 Quesos"));
-        productList.add(new Starter(String.valueOf(numericCode++), "Bolas de pollo"));
-        productList.add(new Starter(String.valueOf(numericCode++), "Aceitunas"));
-        productList.add(new Starter(String.valueOf(numericCode++), "Nachos"));
-        productList.add(new Starter(String.valueOf(numericCode++), "Ensalada de la casa"));
-        productList.add(new Starter(String.valueOf(numericCode++), "Bolas de queso"));
-        productList.add(new Starter(String.valueOf(numericCode++), "Alitas de pollo"));
-        productList.add(new Starter(String.valueOf(numericCode++), "Patatas fritas"));
-        productList.add(new Starter(String.valueOf(numericCode++), "Ensalada cesar"));
+    public void update(Product product) throws DatabaseErrorException {
+        for (Product product1 : productsCreadosLista) {
+            if (Objects.equals(product.getCod(), product1.getCod())) {
+                product1.setName(product.getName());
+                product1.setVat(product.devolvertVat());
+                product1.setDiscount(product.devolverDiscount());
+                product1.setPrize(product.devolverPrecio());
+            }
+        }
+        productosDAO.update(product);
     }
 
 

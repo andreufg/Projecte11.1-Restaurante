@@ -1,7 +1,7 @@
 package es.progcipfpbatoi.controller;
 
-import es.progcipfpbatoi.model.entidades.Order;
-import es.progcipfpbatoi.model.entidades.producttypes.Product;
+import es.progcipfpbatoi.model.dto.Order;
+import es.progcipfpbatoi.model.dto.producttypes.Product;
 import es.progcipfpbatoi.model.repositorios.PedidosRepository;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.collections.FXCollections;
@@ -42,11 +42,11 @@ public class CrearPedidoController implements Initializable {
     private ObservableList<Product> productosSeleccionados;
     private Order order;
 
-    public CrearPedidoController(Initializable controladorPadre, String vistaPadre, PedidosRepository pedidosRepository) {
+    public CrearPedidoController(Initializable controladorPadre, String vistaPadre, PedidosRepository pedidosRepository, ProductRepository productRepository) {
         this.controladorPadre = controladorPadre;
         this.pedidosRepository = pedidosRepository;
         this.vistaPadre = vistaPadre;
-        this.productRepository = new ProductRepository();
+        this.productRepository = productRepository;
         this.lista = productRepository.findAll();
     }
 
