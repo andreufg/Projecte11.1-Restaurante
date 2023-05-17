@@ -96,7 +96,7 @@ public class DetalleProductoController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.iva.setText(product.getVat());
         this.nombre.setText(product.getName());
-        this.cod.setText(product.getCod());
+        this.cod.setText(product.getPrefixCod());
         this.precio.setText(product.getPrecio());
         this.descuento.setText(product.getDiscount());
         this.coste.setText(product.getPrizeString());

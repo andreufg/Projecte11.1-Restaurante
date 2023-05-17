@@ -13,6 +13,11 @@ public interface ProductosDAO {
     ArrayList<Product> findAll();
 
     /**
+     *  Obtiene todas las tareas creadas por el usuario
+     */
+    ArrayList<Product> findAllCreadas();
+
+    /**
      * Obtiene todas las tareas que comiencen por @text
      * @param text
      * @return
@@ -29,9 +34,11 @@ public interface ProductosDAO {
 
     /**
      * Almacena la tarea o la actualiza en caso de existir
-     * @param tarea
+     * @param product
      * @return
      * @throws DatabaseErrorException
      */
-    boolean save(Product tarea) throws DatabaseErrorException;
+    boolean save(Product product) throws DatabaseErrorException;
+
+    void update(Product product) throws DatabaseErrorException;
 }

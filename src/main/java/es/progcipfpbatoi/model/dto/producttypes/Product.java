@@ -15,14 +15,34 @@ public abstract class Product {
     private float vat;
 
     private String prefixCode;
+    private boolean creadoPorUsuario;
+    private boolean dadoDeBaja;
 
     public Product(String cod, String name, float prize, float disccount, float vat, String prefixCode) {
-        this.cod = prefixCode + cod;
+        this.cod = cod;
         this.name = name;
         this.prize = prize;
         this.discount = disccount;
         this.vat = vat;
         this.prefixCode = prefixCode;
+        this.creadoPorUsuario = false;
+        this.dadoDeBaja = false;
+    }
+
+    public boolean isDadoDeBaja() {
+        return dadoDeBaja;
+    }
+
+    public void setDadoDeBaja(boolean dadoDeBaja) {
+        this.dadoDeBaja = dadoDeBaja;
+    }
+
+    public void setCreadoPorUsuario(boolean creadoPorUsuario) {
+        this.creadoPorUsuario = creadoPorUsuario;
+    }
+
+    public boolean isCreadoPorUsuario() {
+        return creadoPorUsuario;
     }
 
     public String getPrefixCode() {
@@ -40,6 +60,9 @@ public abstract class Product {
     public String getCod() {
         return this.cod;
     }
+    public String getPrefixCod() {
+        return prefixCode+this.cod;
+    }
 
     public String getPrecio(){
         DecimalFormat formato1 = new DecimalFormat("#.00");
@@ -49,7 +72,7 @@ public abstract class Product {
         return prize;
     }
     public float getPrize() {
-        return prize * (1 + vat) - (prize * discount);
+        return prize * (1 + (vat/100)) - (prize * discount/100);
     }
     public String getPrizeString() {
         DecimalFormat formato1 = new DecimalFormat("#.00");
@@ -62,7 +85,7 @@ public abstract class Product {
 
     public String getDiscount() {
         DecimalFormat formato1 = new DecimalFormat("#");
-        return formato1.format(discount*100);
+        return formato1.format(discount);
     }
     public float devolverDiscount() {
         return discount;
@@ -83,7 +106,7 @@ public abstract class Product {
 
     public String getVat() {
         DecimalFormat formato1 = new DecimalFormat("#");
-        return formato1.format(vat*100);
+        return formato1.format(vat);
     }
     public float devolvertVat() {
         return vat;
@@ -108,7 +131,7 @@ public abstract class Product {
     @Override
     public String toString() {
 
-        return cod + " " + name + "  Precio: " + getPrizeString() + "€";
+        return getPrefixCod() + " " + name + "  Precio: " + getPrizeString() + "€";
     }
 
     public String getExtras() {

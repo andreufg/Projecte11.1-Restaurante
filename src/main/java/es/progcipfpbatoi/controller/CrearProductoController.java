@@ -1,5 +1,6 @@
 package es.progcipfpbatoi.controller;
 
+import es.progcipfpbatoi.exceptions.DatabaseErrorException;
 import es.progcipfpbatoi.model.dto.producttypes.Product;
 import es.progcipfpbatoi.model.dto.producttypes.types.Desert;
 import es.progcipfpbatoi.model.dto.producttypes.types.Drink;
@@ -58,7 +59,7 @@ public class CrearProductoController implements Initializable {
     }
 
     @FXML
-    private void confirmar(ActionEvent event) {
+    private void confirmar(ActionEvent event) throws DatabaseErrorException {
         if (tipo.getValue() == null || nombre.getText() == null || iva.getText() == null || precio.getText() == null || descuento.getText() == null) {
             System.out.println("No se han seleccionado productos.");
         } else if (!esNumero(iva.getText()) || !esNumeroConDecimal(precio.getText()) || !esNumero(descuento.getText())) {
@@ -66,10 +67,12 @@ public class CrearProductoController implements Initializable {
         } else {
             if (product != null) {
                 product.setName(nombre.getText());
-                product.setVat(retornarValorNumerico(iva.getText()) / 100);
+                product.setVat(retornarValorNumerico(iva.getText()));
                 product.setPrize(retornarValorNumerico(precio.getText()));
-                product.setDiscount(retornarValorNumerico(descuento.getText()) / 100);
-                AlertMessages.mostrarAlertInformacion("Cambios guardados con éxito");
+                product.setDiscount(retornarValorNumerico(descuento.getText()));
+                productRepository.update(product);
+                    AlertMessages.mostrarAlertInformacion("Cambios guardados con éxito");
+
                 try {
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     ChangeScene.change(stage, controladorPadre, ruta);
@@ -79,15 +82,14 @@ public class CrearProductoController implements Initializable {
             } else {
                 Product product;
                 if (tipo.getValue().equals("Bebida")) {
-                    product = new Drink(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()) / 100, retornarValorNumerico(iva.getText()) / 100);
+                    product = new Drink(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()));
                 } else if (tipo.getValue().equals("Montadito")) {
-                    product = new Sandwich(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()) / 100, retornarValorNumerico(iva.getText()) / 100);
+                    product = new Sandwich(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()));
                 } else if (tipo.getValue().equals("Postre")) {
-                    product = new Desert(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()) / 100, retornarValorNumerico(iva.getText()) / 100);
+                    product = new Desert(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()));
                 } else {
-                    product = new Starter(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()) / 100, retornarValorNumerico(iva.getText()) / 100);
+                    product = new Starter(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()));
                 }
-                productRepository.anyadirProducto(product);
                 if (productRepository.save(product)) {
                     AlertMessages.mostrarAlertInformacion("Producto guardado con éxito");
                     try {
@@ -105,8 +107,8 @@ public class CrearProductoController implements Initializable {
 
     private float retornarValorNumerico(String text) {
         boolean tieneComa = text.contains(",");
-        if (tieneComa){
-            text = text.replace(",",".");
+        if (tieneComa) {
+            text = text.replace(",", ".");
             return Float.parseFloat(text);
         }
         if (esNumero(text)) {
@@ -118,8 +120,8 @@ public class CrearProductoController implements Initializable {
     private boolean esNumeroConDecimal(String text) {
         try {
             boolean tieneComa = text.contains(",");
-            if (tieneComa){
-                text = text.replace(",",".");
+            if (tieneComa) {
+                text = text.replace(",", ".");
             }
             Float.valueOf(text);
             return true;
