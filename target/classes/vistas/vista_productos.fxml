@@ -16,7 +16,7 @@
         <ListView fx:id="listViewProductos" layoutX="17.0" layoutY="56.0" prefHeight="221.0" prefWidth="554.0" />
         <AnchorPane layoutX="5.0" layoutY="277.0" prefHeight="118.0" prefWidth="570.0">
             <children>
-              <Button layoutX="356.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="123.0" text="Dar de Baja" />
+              <Button layoutX="356.0" layoutY="14.0" mnemonicParsing="false" onAction="#darDeBaja" prefHeight="36.0" prefWidth="123.0" text="Dar de Baja" />
                 <Button layoutX="105.0" layoutY="14.0" mnemonicParsing="false" onAction="#cambiarCrearProductos" prefHeight="36.0" prefWidth="123.0" text="Añadir" />
                 <Button layoutX="105.0" layoutY="67.0" mnemonicParsing="false" onAction="#verDetalle" prefHeight="36.0" prefWidth="123.0" text="Ver detalle" />
                 <Button layoutX="356.0" layoutY="67.0" mnemonicParsing="false" onAction="#volverAtras" prefHeight="36.0" prefWidth="123.0" text="Atras" />
