@@ -26,7 +26,6 @@ public abstract class Product {
         this.vat = vat;
         this.prefixCode = prefixCode;
         this.creadoPorUsuario = false;
-        this.dadoDeBaja = false;
     }
 
     public boolean isDadoDeBaja() {

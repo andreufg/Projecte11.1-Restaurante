@@ -26,7 +26,6 @@ public class FileProductsDao implements ProductosDAO {
     private static final int VAT = 4;
     private static final int TIPO = 5;
     private static final int CREADO = 6;
-    private static final int DADO_DE_BAJA = 7;
 
     private File file;
 
@@ -186,9 +185,11 @@ public class FileProductsDao implements ProductosDAO {
 
             do {
                 String register = bufferedReader.readLine();
-                if (register == null) {
+                if (Objects.equals(register, product.getCod())){
+                    update(product);
+                }else if (register == null) {
                     String tareaNueva = product.getCod() + ";" + product.getName() + ";" + product.getPrecio() + ";"
-                            + product.getDiscount() + ";" + product.getVat() + ";" + tipoObjeto(product) + ";" + true + ";" + product.isDadoDeBaja();
+                            + product.getDiscount() + ";" + product.getVat() + ";" + tipoObjeto(product) + ";" + true ;
                     bufferedWriter.newLine();
                     bufferedWriter.write(tareaNueva);
                     bufferedWriter.close();
@@ -200,6 +201,8 @@ public class FileProductsDao implements ProductosDAO {
         }
         return true;
     }
+
+
     private BufferedWriter getWriter(boolean append) throws IOException {
         return new BufferedWriter(new FileWriter(file, append));
     }
@@ -212,19 +215,46 @@ public class FileProductsDao implements ProductosDAO {
         fields[VAT]=product.getVat();
         fields[TIPO]=tipoObjeto(product);
         fields[CREADO] = String.valueOf(product.isCreadoPorUsuario());
-        fields[DADO_DE_BAJA] = String.valueOf(product.isDadoDeBaja());
         return String.join(";", fields);
     }
 
     @Override
     public void update(Product product) throws DatabaseErrorException {
+        ArrayList<Product> products = findAll();
+        try (BufferedWriter bufferedWriter = getWriter(false)) {
+            for (Product prductItem : products) {
+                if (!prductItem.getCod().equals(product.getCod())) {
+                    bufferedWriter.write(getRegisterFromTask(prductItem));
+                    bufferedWriter.newLine();
+                }else {
+                    product.setCreadoPorUsuario(true);
+                    bufferedWriter.write(getRegisterFromTask(product));
+                    bufferedWriter.newLine();
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
+    @Override
+    public void eliminar(Product product) throws DatabaseErrorException {
+        ArrayList<Product> products = findAll();
+        try (BufferedWriter bufferedWriter = getWriter(false)) {
+            for (Product prductItem : products) {
+                if (!prductItem.getCod().equals(product.getCod())) {
+                    bufferedWriter.write(getRegisterFromTask(prductItem));
+                    bufferedWriter.newLine();
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
-
-    private String tipoObjeto(Product product) {
+        private String tipoObjeto(Product product) {
         if (product instanceof Drink) {
             return "Bebida";
         } else if (product instanceof Desert) {

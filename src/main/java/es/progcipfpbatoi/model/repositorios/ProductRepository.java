@@ -39,9 +39,10 @@ public class ProductRepository{
         }
         return null;
     }
-    public void eliminarProducto(Product product){
+    public void eliminarProducto(Product product) throws DatabaseErrorException {
         productList.remove(product);
         productsCreadosLista.remove(product);
+        productosDAO.eliminar(product);
     }
 
     public Product getById(int id) throws DatabaseErrorException, NotFoundException {

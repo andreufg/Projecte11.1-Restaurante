@@ -1,46 +1,38 @@
-1;lechuga, tomate y mayonesa;1,25;0;0;Montadito;false;false
-1;lechuga, tomate y mayonesa;1,25;0;0;Montadito;false;false
-2;HUEVO DURO lechuga, tomate y mayonesa;1,25;0;0;Montadito;false;false
-3;VEGETAL CON QUESO lechuga, tomate y queso;1,25;0;0;Montadito;false;false
-4;Burger, bacon ahumado, cebolla crujiente y alioli;1,25;0;0;Montadito;false;false
-5;Pollo, bacon ahumado y salsa brava;1,25;0;0;Montadito;false;false
-6;Pollo kebab, cebolla, pimiento verde y mayonesa;1,25;0;0;Montadito;false;false
-7;CUATRO QUESOS: Queso ibérico, queso brie, queso de cabra y crema de queso;1,25;0;0;Montadito;false;false
-8;CAPRESE: Jamón gran reserva, queso mozzarella, tomate y pesto;1,25;0;0;Montadito;false;false
-9;Pulled pork y guacamole;1,25;0;0;Montadito;false;false
-10;PULLED PORK y queso brie;1,25;0;0;Montadito;false;false
-11;FILETE RUSO, cebolla caramelizada y salsa de queso cheddar;1,25;0;0;Montadito;false;false
-12;SALMÓN AHUMADO y crema de queso;1,25;0;0;Montadito;false;false
-13;CARNE MECHADA DESHILACHADA y cebolla crujiente;1,25;0;0;Montadito;false;false
-14;JAMÓN GRAN RESERVA, tomate y aceite de oliva virgen extra;1,25;0;0;Montadito;false;false
-15;CARRILLERA AL VINO TINTO y queso ibérico;1,25;0;0;Montadito;false;false
-16;QUESO IBÉRICO, tortilla de patatas y mayonesa;1,25;0;0;Montadito;false;false
-17;ALBÓNDIGAS y salsa BBQ;1,25;0;0;Montadito;false;false
-18;Pollo, cebolla caramelizada y mayonesa trufada;1,25;0;0;Montadito;false;false
-19;CHISTORRA, bacon ahumado y salsa brava;1,25;0;0;Montadito;false;false
-20;Tortilla de patatas;1,25;0;0;Montadito;false;false
-21;Coca-Cola;1,00;0;0;Bebida;false;false
-22;Agua;1,00;0;0;Bebida;false;false
-23;Fanta Limón;1,00;0;0;Bebida;false;false
-24;Fanta Naranja;1,00;0;0;Bebida;false;false
-25;Cerveza bote 33cl;1,00;0;0;Bebida;false;false
-26;Caña Cerveza;1,00;0;0;Bebida;false;false
-27;Jarra Cerveza;1,00;0;0;Bebida;false;false
-28;Patatas 4 Quesos;1,25;0;0;Entrante;false;false
-29;Bolas de pollo;1,25;0;0;Entrante;false;false
-30;Aceitunas;1,25;0;0;Entrante;false;false
-31;Nachos;1,25;0;0;Entrante;false;false
-32;Ensalada de la casa;1,25;0;0;Entrante;false;false
-33;Bolas de queso;1,25;0;0;Entrante;false;false
-34;Alitas de pollo;1,25;0;0;Entrante;false;false
-35;Patatas fritas;1,25;0;0;Entrante;false;false
-36;Ensalada cesar;1,25;0;0;Entrante;false;false
-37;Pastel de Queso;1,25;0;0;Postre;false;false
-38;Pastel Chocolate;1,25;0;0;Postre;false;false
-39;Helado Chocolate;1,25;0;0;Postre;false;false
-40;Helado Vainilla;1,25;0;0;Postre;false;false
-41;Helado Limón;1,25;0;0;Postre;false;false
-42;Helado Fresa;1,25;0;0;Postre;false;false
-43;Patatas;20,00;2;3;Montadito;false;false
-
-44;Patatas;34,00;5;6;Montadito;true;false
+1;lechuga, tomate y mayonesa;1,25;0;0;Montadito;false;null
+2;HUEVO DURO lechuga, tomate y mayonesa;1,25;0;0;Montadito;false;null
+3;VEGETAL CON QUESO lechuga, tomate y queso;1,25;0;0;Montadito;false;null
+4;Burger, bacon ahumado, cebolla crujiente y alioli;1,25;0;0;Montadito;false;null
+5;Pollo, bacon ahumado y salsa brava;1,25;0;0;Montadito;false;null
+6;Pollo kebab, cebolla, pimiento verde y mayonesa;1,25;0;0;Montadito;false;null
+7;CUATRO QUESOS: Queso ibérico, queso brie, queso de cabra y crema de queso;1,25;0;0;Montadito;false;null
+8;CAPRESE: Jamón gran reserva, queso mozzarella, tomate y pesto;1,25;0;0;Montadito;false;null
+9;Pulled pork y guacamole;1,25;0;0;Montadito;false;null
+10;PULLED PORK y queso brie;1,25;0;0;Montadito;false;null
+11;FILETE RUSO, cebolla caramelizada y salsa de queso cheddar;1,25;0;0;Montadito;false;null
+12;SALMÓN AHUMADO y crema de queso;1,25;0;0;Montadito;false;null
+13;CARNE MECHADA DESHILACHADA y cebolla crujiente;1,25;0;0;Montadito;false;null
+14;JAMÓN GRAN RESERVA, tomate y aceite de oliva virgen extra;1,25;0;0;Montadito;false;null
+15;CARRILLERA AL VINO TINTO y queso ibérico;1,25;0;0;Montadito;false;null
+16;QUESO IBÉRICO, tortilla de patatas y mayonesa;1,25;0;0;Montadito;false;null
+17;ALBÓNDIGAS y salsa BBQ;1,25;0;0;Montadito;false;null
+18;Pollo, cebolla caramelizada y mayonesa trufada;1,25;0;0;Montadito;false;null
+19;CHISTORRA, bacon ahumado y salsa brava;1,25;0;0;Montadito;false;null
+20;Tortilla de patatas;1,25;0;0;Montadito;false;null
+21;Coca-Cola;1,00;0;0;Bebida;false;null
+22;Agua;1,00;0;0;Bebida;false;null
+23;Fanta Limón;1,00;0;0;Bebida;false;null
+24;Fanta Naranja;1,00;0;0;Bebida;false;null
+25;Cerveza bote 33cl;1,00;0;0;Bebida;false;null
+26;Caña Cerveza;1,00;0;0;Bebida;false;null
+27;Jarra Cerveza;1,00;0;0;Bebida;false;null
+28;Patatas 4 Quesos;1,25;0;0;Entrante;false;null
+29;Bolas de pollo;1,25;0;0;Entrante;false;null
+30;Aceitunas;1,25;0;0;Entrante;false;null
+31;Nachos;1,25;0;0;Entrante;false;null
+32;Ensalada de la casa;1,25;0;0;Entrante;false;null
+33;Bolas de queso;1,25;0;0;Entrante;false;null
+34;Alitas de pollo;1,25;0;0;Entrante;false;null
+35;Patatas fritas;1,25;0;0;Entrante;false;null
+36;Ensalada cesar;1,25;0;0;Entrante;false;null
+37;Pastel de Queso;1,25;0;0;Postre;false;null
+38;Pastel Chocolate;1,25;0;0;Postre;false;null

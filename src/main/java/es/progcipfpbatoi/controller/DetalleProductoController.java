@@ -1,5 +1,6 @@
 package es.progcipfpbatoi.controller;
 
+import es.progcipfpbatoi.exceptions.DatabaseErrorException;
 import es.progcipfpbatoi.model.dto.producttypes.Product;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.event.ActionEvent;
@@ -89,6 +90,8 @@ public class DetalleProductoController implements Initializable {
             ChangeScene.change(stage, initializable, "/vistas/vista_productos.fxml");
         } catch (IOException ex) {
             ex.printStackTrace();
+        } catch (DatabaseErrorException e) {
+            throw new RuntimeException(e);
         }
     }
 

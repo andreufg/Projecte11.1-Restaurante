@@ -26,6 +26,10 @@ public class App extends Application {
         PedidosRepository pedidosRepository = new PedidosRepository();
         FileProductsDao fileProductsDao = new FileProductsDao();
         ProductRepository productRepository = new ProductRepository(fileProductsDao);
+//        InmemoryProductDAO inmemoryProductDAO = new InmemoryProductDAO();
+//        for (Product product :inmemoryProductDAO.findAll()) {
+//            productRepository.save(product);
+//        }
 
         inicioController = new InicioController(historialRepository,pedidosRepository, productRepository);
         ChangeScene.change(stage, inicioController, "/vistas/vista_principal.fxml");

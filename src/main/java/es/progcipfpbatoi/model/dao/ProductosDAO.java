@@ -41,4 +41,5 @@ public interface ProductosDAO {
     boolean save(Product product) throws DatabaseErrorException;
 
     void update(Product product) throws DatabaseErrorException;
+    void eliminar(Product product) throws DatabaseErrorException;
 }

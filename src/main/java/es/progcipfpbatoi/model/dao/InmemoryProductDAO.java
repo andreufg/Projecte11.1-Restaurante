@@ -69,6 +69,11 @@ public class InmemoryProductDAO implements ProductosDAO{
 
     }
 
+    @Override
+    public void eliminar(Product product) throws DatabaseErrorException {
+
+    }
+
     private void setDefaultSandwichList() {
         productList.add(new Sandwich(String.valueOf(numericCode++), "lechuga, tomate y mayonesa"));
         productList.add(new Sandwich(String.valueOf(numericCode++), "HUEVO DURO lechuga, tomate y mayonesa"));

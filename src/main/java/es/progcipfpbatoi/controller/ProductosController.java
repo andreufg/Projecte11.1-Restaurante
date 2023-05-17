@@ -1,5 +1,6 @@
 package es.progcipfpbatoi.controller;
 
+import es.progcipfpbatoi.exceptions.DatabaseErrorException;
 import es.progcipfpbatoi.model.dto.producttypes.Product;
 import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.collections.FXCollections;
@@ -32,7 +33,20 @@ public class ProductosController implements Initializable {
         this.crearProductoController = new CrearProductoController(this,"/vistas/vista_productos.fxml", productRepository);
     }
 
-
+    @FXML
+    private void darDeBaja(ActionEvent event) {
+        productosSeleccionados = listViewProductos.getSelectionModel().getSelectedItems();
+        if (productosSeleccionados.isEmpty()) {
+        } else {
+            try {
+                Product product = productosSeleccionados.get(0);
+                productRepository.eliminarProducto(product);
+                listViewProductos.getItems().remove(product);
+            } catch (DatabaseErrorException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
     @FXML
     private void cambiarCrearProductos(ActionEvent event) {
@@ -50,7 +64,6 @@ public class ProductosController implements Initializable {
         if (productosSeleccionados.isEmpty()) {
         } else {
             try {
-
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Product product = productosSeleccionados.get(0);
                 this.detalleProductoController = new DetalleProductoController(this,product, productRepository);
