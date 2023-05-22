@@ -6,29 +6,26 @@ import es.progcipfpbatoi.model.dao.ProductosDAO;
 import es.progcipfpbatoi.model.dto.producttypes.Product;
 import es.progcipfpbatoi.model.dto.producttypes.types.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class ProductRepository{
-    private ArrayList<Product> productList;
-    private ArrayList<Product> productsCreadosLista;
     private ProductosDAO productosDAO;
 
     public ProductRepository(ProductosDAO productosDAO) {
         this.productosDAO = productosDAO;
-        this.productList = productosDAO.findAll();
-        this.productsCreadosLista = productosDAO.findAllCreadas();
     }
 
     public ArrayList<Product> getProductsCreadosLista() {
-        return productsCreadosLista;
+        return productosDAO.findAllCreadas();
     }
     public ArrayList<Product> findAll() {
         return productosDAO.findAll();
     }
 
-    public ArrayList<Product> findAll(String text) {
-        return productosDAO.findAll(text);
+    public Product findAll(int cod) throws SQLException {
+        return productosDAO.findAll(cod);
     }
 
     public Product findProduct(String text) {
@@ -40,25 +37,21 @@ public class ProductRepository{
         return null;
     }
     public void eliminarProducto(Product product) throws DatabaseErrorException {
-        productList.remove(product);
-        productsCreadosLista.remove(product);
         productosDAO.eliminar(product);
     }
 
-    public Product getById(int id) throws DatabaseErrorException, NotFoundException {
-        return productosDAO.getById(id);
+    public Product getById(int cod) throws DatabaseErrorException, NotFoundException {
+        return productosDAO.getById(cod);
     }
-    public String codigo(){
-        return productosDAO.findAll().size() + "";
+    public int codigo(){
+        return productosDAO.findAll().size();
     }
 
-    public boolean save(Product product) throws DatabaseErrorException {
-        productList.add(product);
-        productsCreadosLista.add(product);
+    public boolean save(Product product) throws DatabaseErrorException, NotFoundException, SQLException {
         return productosDAO.save(product);
     }
     public void update(Product product) throws DatabaseErrorException {
-        for (Product product1 : productsCreadosLista) {
+        for (Product product1 : getProductsCreadosLista()) {
             if (Objects.equals(product.getCod(), product1.getCod())) {
                 product1.setName(product.getName());
                 product1.setVat(product.devolvertVat());

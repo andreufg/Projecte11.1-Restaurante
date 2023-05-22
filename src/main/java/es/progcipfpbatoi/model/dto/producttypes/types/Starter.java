@@ -6,12 +6,12 @@ public class Starter extends Product {
 
     private int ration;
 
-    public Starter(String cod, String name) {
+    public Starter(int cod, String name) {
 
         super(cod, name, "e");
         this.ration = 1;
     }
-    public Starter(String cod, String name, float prize, float disccount, float vat) {
+    public Starter(int cod, String name, float prize, float disccount, float vat) {
 
         super(cod, name, prize,disccount,vat,"e");
         this.ration = 1;

@@ -26,12 +26,6 @@ public class CrearPedidoController implements Initializable {
     private Button confirmar;
 
     @FXML
-    private CheckBox checkBox;
-
-    @FXML
-    private DatePicker fecha;
-
-    @FXML
     private TextField nombre;
 
     private Initializable controladorPadre;
@@ -56,19 +50,19 @@ public class CrearPedidoController implements Initializable {
         if (productosSeleccionados.isEmpty()) {
             System.out.println("No se han seleccionado productos.");
         } else {
-            if (!checkBox.isSelected()) {
+            if (nombre.getText().isBlank()) {
                 if (pedidosRepository.size() == 0) {
-                    order = new Order("c1");
+                    order = new Order("c1", "anonimo");
                 } else {
                     int numero = pedidosRepository.size() + 1;
-                    order = new Order("c" + numero);
+                    order = new Order("c" + numero, "anonimo");
                 }
             } else {
                 if (pedidosRepository.size() == 0) {
-                    order = new Order("c1", nombre.getText(), fecha.getAccessibleText());
+                    order = new Order("c1", nombre.getText());
                 } else {
                     int numero = pedidosRepository.size() + 1;
-                    order = new Order("c" + numero, nombre.getText(), fecha.getAccessibleText());
+                    order = new Order("c" + numero, nombre.getText());
                 }
             }
         }

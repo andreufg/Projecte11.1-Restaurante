@@ -91,9 +91,9 @@ public class ProductosController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (productRepository.getProductsCreadosLista().size() > 0) {
-            this.listViewProductos.setItems(getData());
-            this.listViewProductos.setCellFactory((ListView<Product> l) -> new ProductosListaController(productRepository));
-        }
+//        if (productRepository.getProductsCreadosLista().size() > 0) {
+//            this.listViewProductos.setItems(getData());
+//            this.listViewProductos.setCellFactory((ListView<Product> l) -> new ProductosListaController(productRepository));
+//        }
     }
 }

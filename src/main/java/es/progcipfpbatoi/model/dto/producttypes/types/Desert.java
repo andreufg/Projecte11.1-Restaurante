@@ -9,11 +9,11 @@ public class Desert extends Product {
 
    private HashSet<Characteristic> characteristic;
 
-    public Desert(String cod, String name, Characteristic... characteristic) {
+    public Desert(int cod, String name, Characteristic... characteristic) {
         super(cod, name, "p");
         this.characteristic = new HashSet<>(List.of(characteristic));
     }
-    public Desert(String cod, String name, float prize, float disccount, float vat, Characteristic... characteristic) {
+    public Desert(int cod, String name, float prize, float disccount, float vat, Characteristic... characteristic) {
         super(cod, name, prize,disccount,vat,"p");
         this.characteristic = new HashSet<>(List.of(characteristic));
     }

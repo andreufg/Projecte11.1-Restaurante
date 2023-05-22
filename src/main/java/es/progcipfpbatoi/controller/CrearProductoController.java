@@ -1,6 +1,7 @@
 package es.progcipfpbatoi.controller;
 
 import es.progcipfpbatoi.exceptions.DatabaseErrorException;
+import es.progcipfpbatoi.exceptions.NotFoundException;
 import es.progcipfpbatoi.model.dto.producttypes.Product;
 import es.progcipfpbatoi.model.dto.producttypes.types.Desert;
 import es.progcipfpbatoi.model.dto.producttypes.types.Drink;
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -59,7 +61,7 @@ public class CrearProductoController implements Initializable {
     }
 
     @FXML
-    private void confirmar(ActionEvent event) throws DatabaseErrorException {
+    private void confirmar(ActionEvent event) throws DatabaseErrorException, NotFoundException, SQLException {
         if (tipo.getValue() == null || nombre.getText() == null || iva.getText() == null || precio.getText() == null || descuento.getText() == null) {
             System.out.println("No se han seleccionado productos.");
         } else if (!esNumero(iva.getText()) || !esNumeroConDecimal(precio.getText()) || !esNumero(descuento.getText())) {

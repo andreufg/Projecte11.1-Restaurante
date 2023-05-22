@@ -15,16 +15,19 @@ public class Order {
     private String clientName;
 
     private String createdOn;
+    private LocalDateTime creado;
 
     private boolean served;
 
     private ArrayList<Product> products;
 
-    public Order(String code, String clientName, String createdOn) {
+    public Order(String code, String clientName) {
         this.clientName = clientName;
-        this.createdOn = createdOn;
+        DateTimeFormatter formateador = new DateTimeFormatterBuilder().parseCaseInsensitive().append(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toFormatter();
+        this.createdOn = LocalDateTime.now().format(formateador);
         this.code = code;
         served = false;
+        this.creado = LocalDateTime.now();
         this.products = new ArrayList<>();
     }
 
@@ -33,6 +36,7 @@ public class Order {
         this.clientName = "anonimo";
         DateTimeFormatter formateador = new DateTimeFormatterBuilder().parseCaseInsensitive().append(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toFormatter();
         this.createdOn = LocalDateTime.now().format(formateador);
+        this.creado = LocalDateTime.now();
         this.products = new ArrayList<>();
     }
     public boolean empiezaPor(String text) {
@@ -58,6 +62,9 @@ public class Order {
 
     public String getCreatedOn() {
         return createdOn;
+    }
+    public LocalDateTime getCreado() {
+        return creado;
     }
 
     public boolean isServed() {

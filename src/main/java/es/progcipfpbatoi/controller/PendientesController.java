@@ -121,7 +121,7 @@ public class PendientesController implements Initializable {
     }
 
     private void actualizarListaPedidos() {
-        this.listaPedidos = pedidosRepository.findAll();
+        this.listaPedidos = pedidosRepository.listaOrdenada();
         listViewPedidos.setItems(getData());
     }
 

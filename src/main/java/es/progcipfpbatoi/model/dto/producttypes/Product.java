@@ -1,10 +1,11 @@
 package es.progcipfpbatoi.model.dto.producttypes;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 
 public abstract class Product {
 
-    private String cod;
+    private int cod;
 
     private String name;
 
@@ -18,7 +19,7 @@ public abstract class Product {
     private boolean creadoPorUsuario;
     private boolean dadoDeBaja;
 
-    public Product(String cod, String name, float prize, float disccount, float vat, String prefixCode) {
+    public Product(int cod, String name, float prize, float disccount, float vat, String prefixCode) {
         this.cod = cod;
         this.name = name;
         this.prize = prize;
@@ -48,15 +49,15 @@ public abstract class Product {
         return prefixCode;
     }
 
-    public Product(String cod, String name, String prefixCode) {
+    public Product(int cod, String name, String prefixCode) {
         this(cod, name, 1.25f, 0f, 0.1f, prefixCode);
     }
 
-    public boolean empiezaPor(String text) {
-        return this.cod.startsWith(text);
+    public boolean empiezaPor(int cod) {
+        return this.cod == cod;
     }
 
-    public String getCod() {
+    public int getCod() {
         return this.cod;
     }
     public String getPrefixCod() {
@@ -107,6 +108,14 @@ public abstract class Product {
         DecimalFormat formato1 = new DecimalFormat("#");
         return formato1.format(vat);
     }
+    public float getIVA() {
+        return this.vat;
+    }
+
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
+
     public float devolvertVat() {
         return vat;
     }
@@ -123,9 +132,6 @@ public abstract class Product {
         return discount * 100;
     }
 
-    public boolean containsThisCode(String cod) {
-        return this.cod.equals(cod);
-    }
 
     @Override
     public String toString() {
