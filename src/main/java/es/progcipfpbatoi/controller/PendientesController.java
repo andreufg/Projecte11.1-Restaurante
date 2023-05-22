@@ -83,22 +83,22 @@ public class PendientesController implements Initializable {
     private void cancelarPedido() {
         pedidosSeleccionados = listViewPedidos.getSelectionModel().getSelectedItems();
         if (!pedidosSeleccionados.isEmpty()) {
-            Scanner scanner = new Scanner(System.in);
-            String respuesta;
-            boolean salir = false;
-            do {
-                System.out.println("¿Deseas cancelar el pedido?");
-                respuesta = scanner.next();
-                if (respuesta.equals("si") || respuesta.equals("no") || respuesta.equals("Si") || respuesta.equals("No")) {
-                    salir = true;
-                }
-            } while (!salir);
-            if (respuesta.equals("si") || respuesta.equals("Si")) {
                 for (Order order : pedidosSeleccionados) {
                     pedidosRepository.remove(order);
-                    actualizarListaPedidos();
+                    historialRepository.add(pedidosSeleccionados.get(0));
+                    if (historialRepository.save(order)) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Cancelar Pedido");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Has cancelado el predido " + pedidosSeleccionados.get(0).toString());
+                        alert.showAndWait();
+                        System.out.println("Cancelado con exito");
+                        listaPedidos.remove(pedidosSeleccionados.get(0));
+                        actualizarListaPedidos();
+                        break;
+                    }
+
                 }
-            }
         }
     }
 
@@ -121,7 +121,7 @@ public class PendientesController implements Initializable {
     }
 
     private void actualizarListaPedidos() {
-        this.listaPedidos = pedidosRepository.listaOrdenada();
+        this.listaPedidos = pedidosRepository.findAll();
         listViewPedidos.setItems(getData());
     }
 

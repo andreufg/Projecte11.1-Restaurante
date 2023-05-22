@@ -108,7 +108,7 @@ public class SQLFileProductsDAO implements ProductosDAO {
 
     @Override
     public boolean save(Product product) throws DatabaseErrorException, NotFoundException, SQLException {
-        if (findAll(product.getCod()) != null) {
+        if (findAll(product.getCod()) == null) {
             return insert(product);
         } else {
             return update(product);
@@ -124,18 +124,36 @@ public class SQLFileProductsDAO implements ProductosDAO {
         ) {
             preparedStatement.setInt(1, product.getCod());
             preparedStatement.setString(2, product.getName());
-            preparedStatement.setString(3, product.getName());
+            preparedStatement.setNull(3, Types.VARCHAR);
             preparedStatement.setFloat(4, product.getPrize());
-            preparedStatement.setFloat(5, product.getPercentageDiscount());
+            preparedStatement.setFloat(5, product.devolverDiscount());
             preparedStatement.setFloat(6, product.getIVA());
+            preparedStatement.setNull(7, Types.TIMESTAMP);
             preparedStatement.setInt(8,idCategoria(product));
-            if (idCategoria(product) == 1){
-                preparedStatement.setString(9, ((Drink)product).getTamanyo());
-                preparedStatement.setInt(10, ((Drink)product).esRellenable());
-            } else if (idCategoria(product) == 2){
-                preparedStatement.setInt(11, ((Starter)product).getRation());
-            }else if (idCategoria(product) == 4){
-                preparedStatement.setString(12, ((Desert)product).getExtras());
+            if (idCategoria(product) == 1) {
+                preparedStatement.setString(9, ((Drink) product).getTamanyo());
+                preparedStatement.setInt(10, ((Drink) product).esRellenable());
+                preparedStatement.setNull(11, Types.INTEGER);  // raciones
+                preparedStatement.setNull(12, Types.VARCHAR);  // caracteristica
+                preparedStatement.setString(13, "ALTA"); // estado
+            } else if (idCategoria(product) == 2) {
+                preparedStatement.setNull(9, Types.VARCHAR);  // tamanyo
+                preparedStatement.setNull(10, Types.INTEGER);  // rellenable
+                preparedStatement.setInt(11, ((Starter) product).getRation());
+                preparedStatement.setNull(12, Types.VARCHAR);  // caracteristica
+                preparedStatement.setString(13, "ALTA"); // estado
+            } else if (idCategoria(product) == 4) {
+                preparedStatement.setNull(9, Types.VARCHAR);  // tamanyo
+                preparedStatement.setNull(10, Types.INTEGER);  // rellenable
+                preparedStatement.setNull(11, Types.INTEGER);  // raciones
+                preparedStatement.setString(12, ((Desert) product).getExtras());
+                preparedStatement.setString(13, "ALTA"); // estado
+            } else {
+                preparedStatement.setNull(9, Types.VARCHAR);  // tamanyo
+                preparedStatement.setNull(10, Types.INTEGER);  // rellenable
+                preparedStatement.setNull(11, Types.INTEGER);  // raciones
+                preparedStatement.setNull(12, Types.VARCHAR);  // caracteristica
+                preparedStatement.setString(13, "ALTA"); // estado
             }
             preparedStatement.executeUpdate();
 
@@ -164,36 +182,36 @@ public class SQLFileProductsDAO implements ProductosDAO {
         ) {
             statement.setInt(1, product.getCod());
             statement.setString(2, product.getName());
-            statement.setString(3, product.getName());
+            statement.setNull(3, Types.VARCHAR);
             statement.setFloat(4, product.getPrize());
-            statement.setFloat(5, product.getPercentageDiscount());
+            statement.setFloat(5, product.devolverDiscount());
             statement.setFloat(6, product.getIVA());
-            statement.setTimestamp(7, null);
+            statement.setNull(7, Types.TIMESTAMP);
             statement.setInt(8,idCategoria(product));
             if (idCategoria(product) == 1) {
                 statement.setString(9, ((Drink) product).getTamanyo());
                 statement.setInt(10, ((Drink) product).esRellenable());
                 statement.setNull(11, Types.INTEGER);  // raciones
                 statement.setNull(12, Types.VARCHAR);  // caracteristica
-                statement.setNull(13, Types.VARCHAR);  // estado
+                statement.setString(13, "ALTA"); // estado
             } else if (idCategoria(product) == 2) {
                 statement.setNull(9, Types.VARCHAR);  // tamanyo
                 statement.setNull(10, Types.INTEGER);  // rellenable
                 statement.setInt(11, ((Starter) product).getRation());
                 statement.setNull(12, Types.VARCHAR);  // caracteristica
-                statement.setNull(13, Types.VARCHAR);  // estado
+                statement.setString(13, "ALTA");  // estado
             } else if (idCategoria(product) == 4) {
                 statement.setNull(9, Types.VARCHAR);  // tamanyo
                 statement.setNull(10, Types.INTEGER);  // rellenable
                 statement.setNull(11, Types.INTEGER);  // raciones
                 statement.setString(12, ((Desert) product).getExtras());
-                statement.setNull(13, Types.VARCHAR);  // estado
+                statement.setString(13, "ALTA");  // estado
             } else {
                 statement.setNull(9, Types.VARCHAR);  // tamanyo
                 statement.setNull(10, Types.INTEGER);  // rellenable
                 statement.setNull(11, Types.INTEGER);  // raciones
                 statement.setNull(12, Types.VARCHAR);  // caracteristica
-                statement.setNull(13, Types.VARCHAR);  // estado
+                statement.setString(13, "ALTA");  // estado
             }
             statement.executeUpdate();
             return true;

@@ -88,7 +88,7 @@ public abstract class Product {
         return formato1.format(discount);
     }
     public float devolverDiscount() {
-        return discount;
+        return discount/100;
     }
 
     public void setName(String name) {

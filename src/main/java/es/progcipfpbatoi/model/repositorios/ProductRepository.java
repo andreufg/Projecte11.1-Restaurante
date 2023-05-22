@@ -44,7 +44,7 @@ public class ProductRepository{
         return productosDAO.getById(cod);
     }
     public int codigo(){
-        return productosDAO.findAll().size();
+        return productosDAO.findAll().get(productosDAO.findAll().size()-1).getCod()+1;
     }
 
     public boolean save(Product product) throws DatabaseErrorException, NotFoundException, SQLException {

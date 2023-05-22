@@ -17,32 +17,6 @@ public class PedidosRepository implements InmemoryRepository {
         return listaPedidos;
     }
 
-    public ArrayList<Order> listaOrdenada(){
-        ArrayList<Order> orders = new ArrayList<>();
-        int n = orders.size();
-        boolean swapped;
-
-        do {
-            swapped = false;
-
-            for (int i = 0; i < orders.size(); i++) {
-                Order order1 = orders.get(i);
-                Order order2 = orders.get(i + 1);
-
-                if (order1.getCreado().compareTo(order2.getCreado()) > 0) {
-                    // Swap orders
-                    orders.set(i, order2);
-                    orders.set(i + 1, order1);
-                    swapped = true;
-                }
-            }
-
-            n--;
-        } while (swapped);
-
-        return orders;
-    }
-
     @Override
     public int size() {
         return listaPedidos.size();
