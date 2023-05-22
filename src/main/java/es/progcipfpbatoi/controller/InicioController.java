@@ -2,11 +2,11 @@ package es.progcipfpbatoi.controller;
 
 import es.progcipfpbatoi.model.repositorios.HistorialRepository;
 import es.progcipfpbatoi.model.repositorios.PedidosRepository;
+import es.progcipfpbatoi.model.repositorios.ProductRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,13 +17,12 @@ public class InicioController implements Initializable {
     private HistorialController historialController;
     private PendientesController pendientesController;
     private HistorialRepository historialRepository;
-    private PedidosRepository pedidosRepository;
+    private ProductosController productosController;
 
-    public InicioController(HistorialRepository historialRepository, PedidosRepository pedidosRepository) {
-        this.historialRepository = historialRepository;
-        this.pedidosRepository = pedidosRepository;
+    public InicioController(HistorialRepository historialRepository, PedidosRepository pedidosRepository, ProductRepository productRepository) {
+        this.productosController = new ProductosController(this,productRepository);
         this.historialController = new HistorialController(this,historialRepository);
-        this.pendientesController = new PendientesController(this,pedidosRepository,historialRepository);
+        this.pendientesController = new PendientesController(this,pedidosRepository,historialRepository, productRepository);
     }
 
     @FXML
@@ -33,7 +32,6 @@ public class InicioController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             ChangeScene.change(stage, pendientesController, "/vistas/vista_pendientes.fxml");
         } catch (IOException ex) {
-            System.out.println("Malo");
             ex.printStackTrace();
         }
     }
@@ -43,7 +41,15 @@ public class InicioController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             ChangeScene.change(stage, historialController, "/vistas/vista_historial_pedidos.fxml");
         } catch (IOException ex) {
-            System.out.println("Malo");
+            ex.printStackTrace();
+        }
+    }
+    @FXML
+    private void cambiarAProductos(ActionEvent event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            ChangeScene.change(stage, productosController, "/vistas/vista_productos.fxml");
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
