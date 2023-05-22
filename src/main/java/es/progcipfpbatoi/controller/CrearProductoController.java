@@ -102,43 +102,41 @@ public class CrearProductoController implements Initializable {
     @FXML
     private void confirmar(ActionEvent event) throws DatabaseErrorException, NotFoundException, SQLException {
         if (tipo.getValue() == null || nombre.getText() == null || iva.getText() == null || precio.getText() == null || descuento.getText() == null) {
-            System.out.println("No se han seleccionado productos.");
-        } else if (!esNumero(iva.getText()) || !esNumeroConDecimal(precio.getText()) || !esNumero(descuento.getText())) {
-            System.out.println("El iva, el precio y el descuento deben ser numericos o estar dentro del rango permitido");
-        } else {
-            if (product != null) {
-                product.setName(nombre.getText());
-                product.setVat(retornarValorNumerico(iva.getText()));
-                product.setPrize(retornarValorNumerico(precio.getText()));
-                product.setDiscount(retornarValorNumerico(descuento.getText()));
-                if (tipo.getValue().equals("Bebida")) {
-                    if (rellenable.isSelected()) {
-                        ((Drink) product).setRefillable(true);
-                    } else {
-                        ((Drink) product).setRefillable(false);
-                    }
-                    if (tamanyo.getValue().equals("Pequeño")) {
-                        ((Drink) product).setSize(Size.SMALL);
-                    } else if (tamanyo.getValue().equals("Grande")) {
-                        ((Drink) product).setSize(Size.BIG);
-                    } else {
-                        ((Drink) product).setSize(Size.NORMAL);
-                    }
-                    productRepository.update(product);
-                    AlertMessages.mostrarAlertInformacion("Cambios guardados con éxito");
-
-                    try {
-                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        ChangeScene.change(stage, controladorPadre, ruta);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-
-                }
+        System.out.println("No se han seleccionado productos.");
+    } else if (!esNumero(iva.getText()) || !esNumeroConDecimal(precio.getText()) || !esNumero(descuento.getText())) {
+        System.out.println("El iva, el precio y el descuento deben ser numericos o estar dentro del rango permitido");
+    } else {
+        if (product != null) {
+            product.setName(nombre.getText());
+            product.setVat(retornarValorNumerico(iva.getText()));
+            product.setPrize(retornarValorNumerico(precio.getText()));
+            product.setDiscount(retornarValorNumerico(descuento.getText()));
+        if (tipo.getValue().equals("Bebida")) {
+            if (rellenable.isSelected()) {
+                ((Drink) product).setRefillable(true);
             } else {
-                Product product;
-                if (tipo.getValue().equals("Bebida")) {
-                    if (rellenable.isSelected()) {
+                ((Drink) product).setRefillable(false);
+            }
+            if (tamanyo.getValue().equals("Pequeño")) {
+                ((Drink) product).setSize(Size.SMALL);
+            } else if (tamanyo.getValue().equals("Grande")) {
+                ((Drink) product).setSize(Size.BIG);
+            } else {
+                ((Drink) product).setSize(Size.NORMAL);
+            }}
+            productRepository.update(product);
+               AlertMessages.mostrarAlertInformacion("Cambios guardados con éxito");
+
+            try {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                ChangeScene.change(stage, controladorPadre, ruta);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+         }else {
+            Product product;
+            if (tipo.getValue().equals("Bebida")) {
+                 if (rellenable.isSelected()) {
                         if (tamanyo.getValue().equals("Pequeño")) {
                             product = new Drink(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()), Size.SMALL, true);
                         } else if (tamanyo.getValue().equals("Grande")) {
@@ -155,39 +153,32 @@ public class CrearProductoController implements Initializable {
                             product = new Drink(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()), Size.NORMAL, false);
                         }
                     }
-
-                } else if (tipo.getValue().equals("Montadito")) {
-                    product = new Sandwich(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()));
-                } else if (tipo.getValue().equals("Postre")) {
-                    if (celiaco.isSelected() && diabetico.isSelected()) {
-                        product = new Desert(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()), Characteristic.CELIAC_SUITABLE, Characteristic.DIABETIC_SUITABLE, Characteristic.CELIAC_SUITABLE);
-                    } else if (celiaco.isSelected()) {
+            } else if (tipo.getValue().equals("Montadito")) {
+                product = new Sandwich(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()));
+            } else if (tipo.getValue().equals("Postre")) {
+                  if (celiaco.isSelected()) {
                         product = new Desert(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()), Characteristic.CELIAC_SUITABLE);
-
                     } else if (diabetico.isSelected()) {
-                        product = new Desert(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()), Characteristic.CELIAC_SUITABLE);
+                        product = new Desert(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()), Characteristic.DIABETIC_SUITABLE);
                     } else {
                         product = new Desert(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()));
                     }
-
-                } else {
-                    product = new Starter(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()));
-                    ((Starter) product).setRation(cantidad.getValue());
+            } else {
+                product = new Starter(productRepository.codigo(), nombre.getText(), retornarValorNumerico(precio.getText()), retornarValorNumerico(descuento.getText()), retornarValorNumerico(iva.getText()));
+                ((Starter) product).setRation(cantidad.getValue());
+            }
+            if (productRepository.save(product)) {
+                AlertMessages.mostrarAlertInformacion("Producto guardado con éxito");
+                try {
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    ChangeScene.change(stage, controladorPadre, ruta);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
-
-                if (productRepository.save(product)) {
-                    AlertMessages.mostrarAlertInformacion("Producto guardado con éxito");
-                    try {
-                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        ChangeScene.change(stage, controladorPadre, ruta);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-
-
             }
         }
+    }
+
     }
 
 
@@ -289,6 +280,18 @@ public class CrearProductoController implements Initializable {
                             "Grande"
                     );
             this.tamanyo.setItems(tamanyo);
+            final ToggleGroup group = new ToggleGroup();
+            celiaco.setToggleGroup(group);
+            diabetico.setToggleGroup(group);
+
+
+            final int initialValue = 1;
+
+            // Value factory.
+            SpinnerValueFactory<Integer> valueFactory = //
+                    new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, initialValue);
+
+            cantidad.setValueFactory(valueFactory);
 
         }
     }

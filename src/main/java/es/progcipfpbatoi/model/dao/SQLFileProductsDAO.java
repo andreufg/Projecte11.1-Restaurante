@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static es.progcipfpbatoi.model.dto.producttypes.types.Characteristic.CELIAC_SUITABLE;
+
 
 public class SQLFileProductsDAO implements ProductosDAO {
    private Connection connection;
@@ -146,7 +148,13 @@ public class SQLFileProductsDAO implements ProductosDAO {
                 preparedStatement.setNull(9, Types.VARCHAR);  // tamanyo
                 preparedStatement.setNull(10, Types.INTEGER);  // rellenable
                 preparedStatement.setNull(11, Types.INTEGER);  // raciones
-                preparedStatement.setString(12, ((Desert) product).getExtras());
+                if (((Desert)product).getExtras().equals("[CELIAC_SUITABLE]")){
+                    preparedStatement.setString(12, "CELIACOS");
+                }else if (((Desert)product).getExtras().equals("[DIABETIC_SUITABLE]")){
+                    preparedStatement.setString(12, "DIABETICOS");
+                }else {
+                    preparedStatement.setNull(12, Types.VARCHAR);
+                }
                 preparedStatement.setString(13, "ALTA"); // estado
             } else {
                 preparedStatement.setNull(9, Types.VARCHAR);  // tamanyo
@@ -204,7 +212,12 @@ public class SQLFileProductsDAO implements ProductosDAO {
                 statement.setNull(9, Types.VARCHAR);  // tamanyo
                 statement.setNull(10, Types.INTEGER);  // rellenable
                 statement.setNull(11, Types.INTEGER);  // raciones
-                statement.setString(12, ((Desert) product).getExtras());
+                if (((Desert)product).getExtras().equals("CELIAC_SUITABLE")){
+                    statement.setString(12, "CELIACOS");
+                }else if (((Desert)product).getExtras().equals("DIABETIC_SUITABLE")){
+                    statement.setString(12, "DIABETICOS");
+                }
+
                 statement.setString(13, "ALTA");  // estado
             } else {
                 statement.setNull(9, Types.VARCHAR);  // tamanyo
@@ -264,7 +277,7 @@ public class SQLFileProductsDAO implements ProductosDAO {
         }else {
             String caracteristicas = rs.getString("caracteristica");
             if (Objects.equals(caracteristicas, "CELIACOS")){
-                return new Desert(cod, nombre, precio, descuento, iva, Characteristic.CELIAC_SUITABLE);
+                return new Desert(cod, nombre, precio, descuento, iva, CELIAC_SUITABLE);
             }else if (Objects.equals(caracteristicas, "DIABETICOS")){
                 return new Desert(cod, nombre, precio, descuento, iva, Characteristic.DIABETIC_SUITABLE);
             }
